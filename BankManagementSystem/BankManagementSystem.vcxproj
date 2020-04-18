@@ -149,6 +149,9 @@
   <ItemGroup>
     <ClCompile Include="BankManagementSystem.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="LinearSingleLinkList.h" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
