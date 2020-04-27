@@ -8,7 +8,7 @@ using namespace std;
 
 class Account {
 public:
-    static string accountNumber;
+    string accountNumber;
     int accountBalance;
     bool accountType;
     string accountUserName;
@@ -90,18 +90,18 @@ public:
                 << setw(15) << "Account Type | "
                 << setw(15) << "Account Balance" << endl;
             while (temp != 0) {
-                cout << setw(17) << temp->accountNumber
-                    << setw(15) << temp->accountUserName
-                    << setw(15) << temp->accountType
-                    << setw(15) << temp->accountBalance << endl;
+                cout << "\t" << temp->accountNumber
+                    << "\t" << temp->accountUserName
+                    << "\t" << temp->accountType
+                    << "\t" << temp->accountBalance << endl;
+                temp = temp->next;
             }
         }
     }
 };
 
 int main() {
-    
     AccountDataList ADL;
+    ADL.createNewAccount();
     ADL.dispalyAccountData();
-
 }

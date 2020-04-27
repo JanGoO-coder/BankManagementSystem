@@ -1,11 +1,7 @@
-#include <iostream>
-#include <string>
-
-using namespace std;
-
 string getAccountUserName() {
 	string accName = "";
 	cout << "\n[User Name] ";
+	cin.ignore();
 	getline(cin, accName);
 	return accName;
 }
@@ -28,6 +24,7 @@ bool getAccountType() {
 string getAccountNumber() {
 	string accNum = "";
 	cout << "\n[Account Number] ";
+	cin.ignore();
 	getline(cin, accNum);
 	return accNum;
 }
