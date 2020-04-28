@@ -65,29 +65,6 @@ public:
         return temp;
     }
 
-    void deleteAccount() {
-        Account* accToDelete = searchAccount(getAccountNumber());
-        Account* temp = accToDelete;
-        if (temp->prev == 0) {
-            head->prev = 0;
-            temp->next = 0;
-            temp = 0;
-            cout << "\n\nAccount Has Been Deleted" << endl;
-        }
-        else if (temp->next == 0) {
-            temp->prev->next = 0;
-            temp->prev = 0;
-            temp = 0;
-            cout << "\n\nAccount Has Been Deleted" << endl;
-        }
-        else {
-            temp = accToDelete->prev;
-            temp->next = accToDelete->next;
-            temp->next->prev = temp;
-            cout << "\n\nAccount Has Been Deleted" << endl;
-        }
-    }
-
     void displayAccountData(string accNum) {
         Account* accountToDispay = searchAccount(accNum);
         Account* temp = accountToDispay;
@@ -126,6 +103,6 @@ public:
 
 int main() {
     AccountDataList ADL;
-    ADL.displayAccountData("0");
-    ADL.dispalyAccountsData();
+    ADL.createNewAccount();
+    ADL.dispalyAccountsData();\
 }
