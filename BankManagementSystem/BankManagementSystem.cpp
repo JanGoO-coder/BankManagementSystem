@@ -104,5 +104,5 @@ public:
 int main() {
     AccountDataList ADL;
     ADL.createNewAccount();
-    ADL.dispalyAccountsData();\
+    ADL.dispalyAccountsData();
 }
