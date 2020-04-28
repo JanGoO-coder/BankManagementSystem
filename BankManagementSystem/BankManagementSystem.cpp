@@ -17,7 +17,7 @@ public:
     Account* prev;
 
     Account(string accountUserName, int accountPassword, bool accountType, int accountBalance = 0) {
-        accountNumber = ""; //static
+        this->accountNumber = generateAccountNumber(); // auto generated account number
         this->accountBalance = accountBalance;
         this->accountType = accountType;
         this->accountUserName = accountUserName;
@@ -47,11 +47,20 @@ public:
 
     Account* searchAccount(string accNum) {
         Account* temp = head;
-        while (temp != 0) {
-            if (temp->accountNumber == accNum) {
-                break;
+        if (temp == 0) {
+            cout << "There is No Account Data" << endl;
+        }
+        else {
+            while (temp != 0) {
+                if (temp->accountNumber == accNum) {
+                    break;
+                }
+                if (temp == 0) {
+                    cout << "There is no Account Data" << endl;
+                    break;
+                }
+                temp = temp->next;
             }
-            temp = temp->next;
         }
         return temp;
     }
@@ -79,9 +88,24 @@ public:
         }
     }
 
-    void dispalyAccountData() {
+    void displayAccountData(string accNum) {
+        Account* accountToDispay = searchAccount(accNum);
+        Account* temp = accountToDispay;
+        if (temp != 0) {
+            cout << setw(17) << "Account Number | "
+                << setw(15) << "Account Name | "
+                << setw(15) << "Account Type | "
+                << setw(15) << "Account Balance" << endl;
+            cout << setw(14) << temp->accountNumber << " | "
+                << setw(12) << temp->accountUserName << " | "
+                << setw(12) << temp->accountType << " | "
+                << setw(15) << temp->accountBalance << endl;
+        }
+    }
+
+    void dispalyAccountsData() {
         Account* temp = head;
-        if (temp == 0) {
+        if (head == 0) {
             cout << "\nThere is no Account Data" << endl;
         }
         else {
@@ -90,10 +114,10 @@ public:
                 << setw(15) << "Account Type | "
                 << setw(15) << "Account Balance" << endl;
             while (temp != 0) {
-                cout << "\t" << temp->accountNumber
-                    << "\t" << temp->accountUserName
-                    << "\t" << temp->accountType
-                    << "\t" << temp->accountBalance << endl;
+                cout << setw(14) << temp->accountNumber << " | "
+                    << setw(12) << temp->accountUserName << " | "
+                    << setw(12) << temp->accountType << " | "
+                    << setw(15) << temp->accountBalance << endl;
                 temp = temp->next;
             }
         }
@@ -102,6 +126,6 @@ public:
 
 int main() {
     AccountDataList ADL;
-    ADL.createNewAccount();
-    ADL.dispalyAccountData();
+    ADL.displayAccountData("0");
+    ADL.dispalyAccountsData();
 }

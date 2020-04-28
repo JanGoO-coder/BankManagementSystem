@@ -28,3 +28,11 @@ string getAccountNumber() {
 	getline(cin, accNum);
 	return accNum;
 }
+
+string generateAccountNumber() {
+	const string ACN = "ACN";
+	static int num = 0;
+	string accNum = ACN;
+	accNum = accNum + to_string(++num);
+	return accNum;
+}
