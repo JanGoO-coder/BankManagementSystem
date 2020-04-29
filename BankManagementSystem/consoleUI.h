@@ -1,6 +1,7 @@
 string getAccountUserName() {
 	string accName = "";
-	cout << "\n[User Name] ";
+	cout << setfill(' ');
+	cout << "\n\n" << setw(25) << "[User Name] >> ";
 	cin.ignore();
 	getline(cin, accName);
 	return accName;
@@ -8,22 +9,25 @@ string getAccountUserName() {
 
 int getAccountPassword() {
 	int accPass = 0;
-	cout << "\n[Password] ";
+	cout << setfill(' ');
+	cout << "\n" << setw(25) << "[Password] >> ";
 	cin >> accPass;
 	return accPass;
 }
 
 bool getAccountType() {
 	bool pickAccount = false;
-	cout << "\n[0 for Current Account] [1 for Saving Account]" << endl;
-	cout << "[Account Type] ";
+	cout << setfill(' ');
+	cout << "\n" << setw(80) << "Note: Enter \"0\" for Current Account & \"1\" for Saving Account" << endl;
+	cout << "\n" << setw(25) << "[Account Type] >> ";
 	cin >> pickAccount;
 	return pickAccount;
 }
 
 string getAccountNumber() {
 	string accNum = "";
-	cout << "\n[Account Number] ";
+	cout << setfill(' ');
+	cout << setw(25) << "\n[Account Number] >> ";
 	cin.ignore();
 	getline(cin, accNum);
 	return accNum;

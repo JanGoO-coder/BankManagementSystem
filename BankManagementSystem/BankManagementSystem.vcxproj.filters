@@ -23,5 +23,11 @@
     <ClInclude Include="consoleUI.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Navigation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="bank.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -150,7 +150,9 @@
     <ClCompile Include="BankManagementSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="bank.h" />
     <ClInclude Include="consoleUI.h" />
+    <ClInclude Include="Navigation.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
