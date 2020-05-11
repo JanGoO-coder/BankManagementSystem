@@ -155,8 +155,6 @@ public:
             cout << "\nThere is no Account Data" << endl;
         }
         else {
-            if (temp->customerAccountType) accType = "Saving Account";
-            else accType = "Current Account";
 
             cout << "\n" << setw(80) << "Account Data of All the Account is in the Table bellow\n" << endl;
 
@@ -165,6 +163,11 @@ public:
                 << setw(20) << "Account Type | "
                 << setw(20) << "Account Balance" << endl;
             while (temp != 0) {
+                if (temp->customerAccountType)
+                    accType = "Saving Account";
+                else
+                    accType = "Current Account";
+
                 cout << setw(17) << temp->customerAccountNumber << " | "
                     << setw(17) << temp->customerAccountUserName << " | "
                     << setw(17) << accType << " | "
