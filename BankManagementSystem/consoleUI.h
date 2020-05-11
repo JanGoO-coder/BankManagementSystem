@@ -1,9 +1,8 @@
 string getAccountUserName() {
-	string accName = "";
+	string accName = " ";
 	cout << setfill(' ');
 	cout << "\n\n" << setw(25) << "[User Name] >> ";
-	cin.ignore();
-	getline(cin, accName);
+	getline(cin >> ws, accName);
 	return accName;
 }
 
@@ -28,15 +27,48 @@ string getAccountNumber() {
 	string accNum = "";
 	cout << setfill(' ');
 	cout << setw(25) << "\n[Account Number] >> ";
-	cin.ignore();
-	getline(cin, accNum);
+	getline(cin >> ws, accNum);
 	return accNum;
 }
 
-string generateAccountNumber() {
-	const string ACN = "ACN";
+string generateCustomerAccountNumber() {
+	const string CACN = "CACN";
 	static int num = 0;
-	string accNum = ACN;
+	string accNum = CACN;
 	accNum = accNum + to_string(++num);
 	return accNum;
+}
+
+string generateEmployeeAccountNumber() {
+	const string EACN = "EACN";
+	const string MACN = "Manager";
+	string accNum = "";
+	static int num1 = 0;
+	static int num2 = 0;
+	int choice = 0;
+
+	cout << "[0] Employee | [1] Manager >> ";
+	cin >> choice;
+
+	switch (choice) {
+		case 0: {
+			accNum = EACN;
+			accNum = accNum + to_string(++num1);
+			break;
+		}
+
+		case 1: {
+			accNum = MACN;
+			accNum = accNum + to_string(++num2);
+			break;
+		}
+	}
+	return accNum;
+}
+
+int getAmmount() {
+	int ammount;
+	cout << "\n" << setw(80) << "[Ammount] >> ";
+	cin >> ammount;
+	return ammount;
 }
