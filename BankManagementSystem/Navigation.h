@@ -620,7 +620,7 @@ int managerSubMenu()
 	return 0;
 }
 
-int subMenu()
+int bankSubMenu()
 {
 	system("cls");
 	int menu_item = 0, x = 7;
@@ -729,17 +729,136 @@ int subMenu()
 	return 0;
 }
 
-int mainPage()
+int atmSubMenu()
 {
 	system("cls");
 	int menu_item = 0, x = 7;
-	bool runningMainMenu = true;
+	bool runningSubMenu = true;
+	string accNumber = "";
+
+	gotoXY(18, 5); cout << "Sub Menu";
+	gotoXY(18, 7); cout << "> ";
+
+	while (runningSubMenu)
+	{
+		gotoXY(20, 7);  cout << "[0] Deposite Money";
+		gotoXY(20, 8);  cout << "[1] Withdraw Money";
+		gotoXY(20, 9);  cout << "[2] Transfer MOney";
+		gotoXY(20, 10); cout << "[3] Change Password";
+		gotoXY(20, 11); cout << "[4] Banlance Inquiry";
+		gotoXY(20, 12); cout << "[5] Account Statement";
+		gotoXY(20, 13); cout << "[6] LOG OUT";
+
+		system("pause>nul"); // the >nul bit causes it the print no message
+
+		if (GetAsyncKeyState(VK_DOWN) && x != 13) //down button pressed
+		{
+			gotoXY(18, x); cout << "  ";
+			x++;
+			gotoXY(18, x); cout << "> ";
+			menu_item++;
+			continue;
+		}
+
+		if (GetAsyncKeyState(VK_UP) && x != 7) //up button pressed
+		{
+			gotoXY(18, x); cout << "  ";
+			x--;
+			gotoXY(18, x); cout << "> ";
+			menu_item--;
+			continue;
+		}
+
+		if (GetAsyncKeyState(VK_RETURN)) { // Enter key pressed
+
+			switch (menu_item) {
+
+			case 0: {
+				system("cls");
+				gotoXY(20, 16);
+				user.moneyMachine.depositMoney(
+					user.CADL.searchCustomerAccount(getAccountNumber()),
+					getAmount()
+				);
+				break;
+			}
+
+			case 1: {
+				system("cls");
+				gotoXY(20, 16);
+				user.moneyMachine.withdrawMoney(
+					user.CADL.searchCustomerAccount(getAccountNumber()),
+					getAmount()
+				);
+				break;
+			}
+
+			case 2: {
+				system("cls");
+				gotoXY(20, 16);
+				cout << "Enter Sender and Reciever Account Number respectivley" << endl;
+				user.moneyMachine.transferMoney(
+					user.CADL.searchCustomerAccount(getAccountNumber()),
+					user.CADL.searchCustomerAccount(getAccountNumber()),
+					getAmount()
+				);
+				break;
+			}
+
+			case 3: {
+				system("cls");
+				gotoXY(20, 16);
+				cout << "\nEnter User Name and New Password" << endl;
+				user.moneyMachine.changePassword(
+					user.CADL.searchCustomerAccount(getAccountNumber()),
+					getAccountPassword()
+				);
+				break;
+			}
+
+			case 4: {
+				system("cls");
+				gotoXY(20, 16);
+				cout << "Your Account Balance is : " 
+					<< user.CADL.searchCustomerAccount(getAccountNumber())->customerAccountBalance;
+				break;
+			}
+
+			case 5: {
+				system("cls");
+				gotoXY(20, 16);
+				user.moneyMachine.transactionHistory();
+				break;
+			}
+
+			case 6: {
+				system("cls");
+				gotoXY(20, 16);
+				cout << "You are now loged out" << endl;
+				runningSubMenu = false;
+				break;
+			}
+			}
+
+		}
+
+	}
+
+	gotoXY(20, 21);
+	return 0;
+}
+
+int bankMenu()
+{
+	system("cls");
+	int menu_item = 0, x = 7;
+	bool running = true;
 	string accNumber = " ";
 
 	gotoXY(18, 5); cout << "Main Menu";
 	gotoXY(18, 7); cout << "> ";
 
-	while (runningMainMenu)
+	while (running)
 	{
 		gotoXY(20, 7);  cout << "[0] LOG IN";
 		gotoXY(20, 8);  cout << "[1] SIGN UP";
@@ -781,7 +900,7 @@ int mainPage()
 							managerSubMenu();
 						}
 						else {
-							subMenu();
+							bankSubMenu();
 						}
 					}
 					else {
@@ -800,9 +919,155 @@ int mainPage()
 				case 2: {
 					gotoXY(20, 16);
 					cout << "The program has now terminated!!";
-					runningMainMenu = false;
+					running = false;
 					break;
 				}
+
+			}
+
+		}
+
+	}
+
+	gotoXY(20, 21);
+	return 0;
+}
+
+int atmMenu()
+{
+	system("cls");
+	int menu_item = 0, x = 7;
+	bool running = true;
+	string accNumber = " ";
+
+	gotoXY(18, 5); cout << "Main Menu";
+	gotoXY(18, 7); cout << "> ";
+
+	while (running)
+	{
+		gotoXY(20, 7);  cout << "[0] LOG IN";
+		gotoXY(20, 8);  cout << "[1] QUIT";
+
+		system("pause>nul"); // the >nul bit causes it the print no message
+
+		if (GetAsyncKeyState(VK_DOWN) && x != 8) //down button pressed
+		{
+			gotoXY(18, x); cout << "  ";
+			x++;
+			gotoXY(18, x); cout << "> ";
+			menu_item++;
+			continue;
+		}
+
+		if (GetAsyncKeyState(VK_UP) && x != 7) //up button pressed
+		{
+			gotoXY(18, x); cout << "  ";
+			x--;
+			gotoXY(18, x); cout << "> ";
+			menu_item--;
+			continue;
+		}
+
+		if (GetAsyncKeyState(VK_RETURN)) { // Enter key pressed
+
+			system("cls");
+
+			switch (menu_item) {
+
+			case 0: {
+				system("cls");
+				gotoXY(20, 16);
+				accNumber = getAccountNumber();
+
+				if (user.CADL.logIn(user.CADL.searchCustomerAccount(accNumber), getAccountPassword())) {
+					atmSubMenu();
+				}
+				else {
+					cout << "\n" << setw(80) << "Your Password or Account Number is incorrect" << endl;
+				}
+				break;
+			}
+
+
+			case 1: {
+				gotoXY(20, 16);
+				cout << "The program has now terminated!!";
+				running = false;
+				break;
+			}
+
+			}
+
+		}
+
+	}
+
+	gotoXY(20, 21);
+	return 0;
+}
+
+int entryPoint()
+{
+	system("cls");
+	int menu_item = 0, x = 7;
+	bool running = true;
+	string accNumber = " ";
+
+	gotoXY(18, 5); cout << "Main Menu";
+	gotoXY(18, 7); cout << "> ";
+
+	while (running)
+	{
+		gotoXY(20, 7);  cout << "[0] BANK";
+		gotoXY(20, 8);  cout << "[1] ATM";
+		gotoXY(20, 9);  cout << "[2] QUIT";
+
+		system("pause>nul"); // the >nul bit causes it the print no message
+
+		if (GetAsyncKeyState(VK_DOWN) && x != 9) //down button pressed
+		{
+			gotoXY(18, x); cout << "  ";
+			x++;
+			gotoXY(18, x); cout << "> ";
+			menu_item++;
+			continue;
+		}
+
+		if (GetAsyncKeyState(VK_UP) && x != 7) //up button pressed
+		{
+			gotoXY(18, x); cout << "  ";
+			x--;
+			gotoXY(18, x); cout << "> ";
+			menu_item--;
+			continue;
+		}
+
+		if (GetAsyncKeyState(VK_RETURN)) { // Enter key pressed
+
+			system("cls");
+
+			switch (menu_item) {
+
+			case 0: {
+				system("cls");
+				gotoXY(20, 16);
+				bankMenu();
+				break;
+			}
+
+
+			case 1: {
+				gotoXY(20, 16);
+				atmMenu();
+				break;
+			}
+
+			case 2: {
+				gotoXY(20, 16);
+				cout << "The program has now terminated!!";
+				running = false;
+				break;
+			}
 
 			}
 

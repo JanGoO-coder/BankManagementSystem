@@ -11,5 +11,5 @@ using namespace std;
 #include "Navigation.h"
 
 int main() {
-    mainPage();
+    entryPoint();
 }

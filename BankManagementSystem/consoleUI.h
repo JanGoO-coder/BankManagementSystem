@@ -66,9 +66,9 @@ string generateEmployeeAccountNumber() {
 	return accNum;
 }
 
-int getAmmount() {
+int getAmount() {
 	int ammount;
-	cout << "\n" << setw(80) << "[Ammount] >> ";
+	cout << "\n" << setw(20) << "[Amount] >> ";
 	cin >> ammount;
 	return ammount;
 }

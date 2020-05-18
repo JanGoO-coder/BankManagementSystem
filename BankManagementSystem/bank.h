@@ -316,37 +316,52 @@ public:
     }
 };
 
-//class ATM {
-//    
-//public:
-//    ATM() {
-//        
-//    }
-//
-//    bool depositMoney() {
-//
-//    }
-//
-//    bool depositMoney() {
-//
-//    }
-//
-//    bool transferMoney() {
-//
-//    }
-//
-//    bool changePassword() {
-//
-//    }
-//
-//    bool transactionHistory() {
-//
-//    }
-//};
-
-class Bank: public CustomerAccountDataList, public EmployeeAccountDataList {
+class ATM{
+    
 public:
-    /*ATM moneyMachine;*/
+    ATM() {}
+
+    CustomerAccount* atmLogIn(CustomerAccount* loggedInAccount, int passW) {
+        bool isLogedIn = false;
+        if (loggedInAccount != NULL) {
+            if (loggedInAccount->customerAccountPassword == passW) {
+                isLogedIn = true;
+            }
+        }
+
+        if (isLogedIn) {
+            return loggedInAccount;
+        }
+        else {
+            return NULL;
+        }
+    }
+
+    void depositMoney(CustomerAccount* loggedInAcc, int depAmount) {
+        loggedInAcc->customerAccountBalance += depAmount;
+    }
+
+    void withdrawMoney(CustomerAccount* loggedInAcc, int depAmount) {
+        loggedInAcc->customerAccountBalance -= depAmount;
+    }
+
+    void transferMoney(CustomerAccount* loggedInAcc, CustomerAccount* recieverAccNum, int amount) {
+        withdrawMoney(loggedInAcc, amount);
+        depositMoney(loggedInAcc, amount);
+    }
+
+    void changePassword(CustomerAccount* loggedInAcc, int passW) {
+        loggedInAcc->customerAccountPassword = passW;
+    }
+
+    void transactionHistory() {
+
+    }
+};
+
+class Bank{
+public:
+    ATM moneyMachine;
     CustomerAccountDataList CADL;
     EmployeeAccountDataList EADL;
 
