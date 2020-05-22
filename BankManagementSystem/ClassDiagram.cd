@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
+  <Class Name="CustomerAccount">
+    <Position X="13" Y="0.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgYAAAAABAAAIAAAAABAAgAAAAAAAAACA=</HashCode>
+      <FileName>bank.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CustomerAccountDataList">
+    <Position X="0.5" Y="0.5" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>BBAQABAAgAAgBAAAIAAAAAAAQAAACAAACAgEAAAAABA=</HashCode>
+      <FileName>bank.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EmployeeAccount">
+    <Position X="6.75" Y="1.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAAACAAAAAMAAAAAAAAAAAEAAAAAAAEAAAAA=</HashCode>
+      <FileName>bank.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EmployeeAccountDataList">
+    <Position X="9.5" Y="1" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAAGgAAABAAAIEAAAAAAAAAAgAAAAQgAAAAIIAA=</HashCode>
+      <FileName>bank.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ATM">
+    <Position X="4" Y="2.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAACAAAAAAABAAAAAAAAAAAgQAAAAAIABAAAAAAA=</HashCode>
+      <FileName>bank.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Bank">
+    <Position X="4" Y="0.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAQAAAAAAAAAAQAAAAAAAAAgAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>bank.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

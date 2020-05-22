@@ -13,6 +13,160 @@ int mainPage();
 
 Bank user;
 
+int employeeUpdateMenu()
+{
+	system("cls");
+	int menu_item = 0, x = 7;
+	bool running = true;
+	string accNumber = "";
+
+	gotoXY(18, 5); cout << "Sub Menu";
+	gotoXY(18, 7); cout << "> ";
+
+	while (running)
+	{
+		gotoXY(20, 7);  cout << "[0] Change Account User Name";
+		gotoXY(20, 8);  cout << "[1] Change Account Password";
+		gotoXY(20, 9);  cout << "[2] Quit";
+
+		system("pause>nul"); // the >nul bit causes it the print no message
+
+		if (GetAsyncKeyState(VK_DOWN) && x != 9) //down button pressed
+		{
+			gotoXY(18, x); cout << "  ";
+			x++;
+			gotoXY(18, x); cout << "> ";
+			menu_item++;
+			continue;
+		}
+
+		if (GetAsyncKeyState(VK_UP) && x != 7) //up button pressed
+		{
+			gotoXY(18, x); cout << "  ";
+			x--;
+			gotoXY(18, x); cout << "> ";
+			menu_item--;
+			continue;
+		}
+
+		if (GetAsyncKeyState(VK_RETURN)) { // Enter key pressed
+
+			switch (menu_item) {
+
+			case 0: {
+				system("cls");
+				gotoXY(20, 16);
+
+				accNumber = getAccountNumber();
+
+				user.EADL.updateCustomerAccountUserName(accNumber, getAccountUserName());
+				break;
+			}
+
+			case 1: {
+				system("cls");
+				gotoXY(20, 16);
+
+				accNumber = getAccountNumber();
+
+				user.EADL.updateCustomerAccountPassword(accNumber, getAccountPassword());
+				break;
+			}
+
+			case 2: {
+				system("cls");
+				gotoXY(20, 16);
+				cout << "You are now loged out" << endl;
+				running = false;
+				break;
+			}
+			}
+
+		}
+
+	}
+
+	gotoXY(20, 21);
+	return 0;
+}
+
+int customerUpdateMenu()
+{
+	system("cls");
+	int menu_item = 0, x = 7;
+	bool running = true;
+	string accNumber = "";
+
+	gotoXY(18, 5); cout << "Sub Menu";
+	gotoXY(18, 7); cout << "> ";
+
+	while (running)
+	{
+		gotoXY(20, 7);  cout << "[0] Change Account User Name";
+		gotoXY(20, 8);  cout << "[1] Change Account Password";
+		gotoXY(20, 9);  cout << "[2] Quit";
+
+		system("pause>nul"); // the >nul bit causes it the print no message
+
+		if (GetAsyncKeyState(VK_DOWN) && x != 9) //down button pressed
+		{
+			gotoXY(18, x); cout << "  ";
+			x++;
+			gotoXY(18, x); cout << "> ";
+			menu_item++;
+			continue;
+		}
+
+		if (GetAsyncKeyState(VK_UP) && x != 7) //up button pressed
+		{
+			gotoXY(18, x); cout << "  ";
+			x--;
+			gotoXY(18, x); cout << "> ";
+			menu_item--;
+			continue;
+		}
+
+		if (GetAsyncKeyState(VK_RETURN)) { // Enter key pressed
+
+			switch (menu_item) {
+
+			case 0: {
+				system("cls");
+				gotoXY(20, 16);
+
+				accNumber = getAccountNumber();
+
+				user.CADL.updateCustomerAccountUserName(accNumber, getAccountUserName());
+				break;
+			}
+
+			case 1: {
+				system("cls");
+				gotoXY(20, 16);
+
+				accNumber = getAccountNumber();
+
+				user.CADL.updateCustomerAccountPassword(accNumber, getAccountPassword());
+				break;
+			}
+
+			case 2: {
+				system("cls");
+				gotoXY(20, 16);
+				cout << "You are now loged out" << endl;
+				running = false;
+				break;
+			}
+			}
+
+		}
+
+	}
+
+	gotoXY(20, 21);
+	return 0;
+}
+
 int updateMenu()
 {
 	system("cls");
@@ -132,14 +286,24 @@ int managerMiniMenu_0()
 				case 0: {
 					system("cls");
 					gotoXY(20, 16);
-					user.EADL.createNewEmployeeAccount();
+					user.EADL.createNewEmployeeAccount(
+						generateEmployeeAccountNumber(), 
+						getAccountUserName(), 
+						getAccountPassword()
+					);
 					break;
 				}
 
 				case 1: {
 					system("cls");
 					gotoXY(20, 16);
-					user.CADL.createNewCustomerAccount();
+					user.CADL.createNewCustomerAccount(
+						generateCustomerAccountNumber(),
+						0 ,
+						getAccountUserName(), 
+						getAccountPassword(), 
+						getAccountType()
+					);
 					break;
 				}
 
@@ -277,14 +441,14 @@ int managerMiniMenu_2()
 			case 0: {
 				system("cls");
 				gotoXY(20, 16);
-				//
+				employeeUpdateMenu();
 				break;
 			}
 
 			case 1: {
 				system("cls");
 				gotoXY(20, 16);
-				//
+				customerUpdateMenu();
 				break;
 			}
 
@@ -667,7 +831,13 @@ int bankSubMenu()
 				case 0: {
 					system("cls");
 					gotoXY(20, 16);
-					user.CADL.createNewCustomerAccount();
+					user.CADL.createNewCustomerAccount(
+						generateCustomerAccountNumber(), 
+						0, 
+						getAccountUserName(), 
+						getAccountPassword(), 
+						getAccountType()
+					);
 					break;
 				}
 
@@ -729,7 +899,7 @@ int bankSubMenu()
 	return 0;
 }
 
-int atmSubMenu()
+int atmSubMenu(CustomerAccount* loggedInAccountNumber)
 {
 	system("cls");
 	int menu_item = 0, x = 7;
@@ -777,9 +947,9 @@ int atmSubMenu()
 				system("cls");
 				gotoXY(20, 16);
 				user.moneyMachine.depositMoney(
-					user.CADL.searchCustomerAccount(getAccountNumber()),
 					getAmount()
 				);
+				user.CADL.updateFullFile();
 				break;
 			}
 
@@ -787,9 +957,9 @@ int atmSubMenu()
 				system("cls");
 				gotoXY(20, 16);
 				user.moneyMachine.withdrawMoney(
-					user.CADL.searchCustomerAccount(getAccountNumber()),
 					getAmount()
 				);
+				user.CADL.updateFullFile();
 				break;
 			}
 
@@ -799,9 +969,9 @@ int atmSubMenu()
 				cout << "Enter Sender and Reciever Account Number respectivley" << endl;
 				user.moneyMachine.transferMoney(
 					user.CADL.searchCustomerAccount(getAccountNumber()),
-					user.CADL.searchCustomerAccount(getAccountNumber()),
 					getAmount()
 				);
+				user.CADL.updateFullFile();
 				break;
 			}
 
@@ -810,23 +980,24 @@ int atmSubMenu()
 				gotoXY(20, 16);
 				cout << "\nEnter User Name and New Password" << endl;
 				user.moneyMachine.changePassword(
-					user.CADL.searchCustomerAccount(getAccountNumber()),
 					getAccountPassword()
 				);
+				user.CADL.updateFullFile();
 				break;
 			}
 
 			case 4: {
 				system("cls");
 				gotoXY(20, 16);
-				cout << "Your Account Balance is : " 
-					<< user.CADL.searchCustomerAccount(getAccountNumber())->customerAccountBalance;
+				cout << "Your Account Balance is : ";
+				cout << loggedInAccountNumber->customerAccountBalance;
 				break;
 			}
 
 			case 5: {
 				system("cls");
 				gotoXY(20, 16);
+				cout << endl;
 				user.moneyMachine.transactionHistory();
 				break;
 			}
@@ -912,7 +1083,11 @@ int bankMenu()
 
 				case 1: {
 					gotoXY(20, 16);
-					user.EADL.createNewEmployeeAccount();
+					user.EADL.createNewEmployeeAccount(
+						generateEmployeeAccountNumber(), 
+						getAccountUserName(), 
+						getAccountPassword()
+					);
 					break;
 				}
 
@@ -978,9 +1153,9 @@ int atmMenu()
 				system("cls");
 				gotoXY(20, 16);
 				accNumber = getAccountNumber();
-
-				if (user.CADL.logIn(user.CADL.searchCustomerAccount(accNumber), getAccountPassword())) {
-					atmSubMenu();
+				CustomerAccount* loggedInAccount = user.moneyMachine.atmLogIn(user.CADL.searchCustomerAccount(accNumber), getAccountPassword());
+				if (loggedInAccount) {
+					atmSubMenu(loggedInAccount);
 				}
 				else {
 					cout << "\n" << setw(80) << "Your Password or Account Number is incorrect" << endl;

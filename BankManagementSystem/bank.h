@@ -1,5 +1,7 @@
 //#include <iostream>
+//#include <fstream>
 //#include <string>
+//#include <sstream>
 //#include <iomanip>
 //using namespace std;
 
@@ -13,8 +15,13 @@ public:
     CustomerAccount* nextCustomer;
     CustomerAccount* prevCustomer;
 
-    CustomerAccount(string customerAccountUserName, int customerAccountPassword, bool customerAccountType, int customerAccountBalance = 0) {
-        this->customerAccountNumber = generateCustomerAccountNumber(); // auto generated account number
+    CustomerAccount(
+        string customerAccountUserName, 
+        int customerAccountPassword, 
+        bool customerAccountType, 
+        int customerAccountBalance = 0
+    ) {
+        this->customerAccountNumber = "CACN";
         this->customerAccountBalance = customerAccountBalance;
         this->customerAccountType = customerAccountType;
         this->customerAccountUserName = customerAccountUserName;
@@ -27,9 +34,91 @@ class CustomerAccountDataList {
 public:
     CustomerAccount* head;
     CustomerAccountDataList() { head = 0; }
+    friend class ATM;
 
-    void createNewCustomerAccount() {
-        CustomerAccount* newAccount = new CustomerAccount(getAccountUserName(), getAccountPassword(), getAccountType());
+    void writeDataOnFile(
+        const string accNum,
+        int accBal,
+        string accName,
+        int accPass,
+        bool accT
+    ) {
+        ofstream customerDataWRITE;
+        customerDataWRITE.open("database/customerData.csv", ios::app);
+
+        if (customerDataWRITE.is_open()) {
+            customerDataWRITE
+                << accNum << ","
+                << accBal << ","
+                << accName << ","
+                << accPass << ","
+                << accT << "," << endl;
+        }
+        else { cout << "\n\nFile Not Open" << endl; }
+
+        customerDataWRITE.close();
+    }
+
+    void updateFullFile() {
+        CustomerAccount* temp = head;
+        ofstream customerDataWRITE;
+        customerDataWRITE.open("database/customerData.csv", ios::trunc);
+
+        if (customerDataWRITE.is_open()) {
+            while (temp != 0) {
+                customerDataWRITE 
+                    << temp->customerAccountNumber << ","
+                    << temp->customerAccountBalance << ","
+                    << temp->customerAccountUserName << ","
+                    << temp->customerAccountPassword << ","
+                    << temp->customerAccountType << "," << endl;
+                temp = temp->nextCustomer;
+            }
+        }
+        else { cout << "\n\nFile Not Open" << endl; }
+
+        customerDataWRITE.close();
+    }
+
+    void createNewCustomerAccount(
+        const string accNumber,
+        int accBalance,
+        string accUserName,
+        int accPassword,
+        bool accType
+    ) {
+        CustomerAccount* newAccount = new CustomerAccount(accUserName, accPassword, accType);
+        newAccount->customerAccountNumber = accNumber;
+        if (head == 0) {
+            head = newAccount;
+            cout << "\n\n" << setw(80) << "Your Account Has Been Created\n" << endl;
+        }
+        else {
+            newAccount->nextCustomer = head;
+            head->prevCustomer = newAccount;
+            head = newAccount;
+            cout << "\n\n" << setw(80) << "Your Account Has Been Created\n" << endl;
+        }
+
+        writeDataOnFile(
+            accNumber,
+            accBalance,
+            accUserName,
+            accPassword,
+            accType
+        );
+    }
+
+    void pushCustomerAccount(
+        const string accNumber, 
+        int accBalance, 
+        string accUserName, 
+        int accPassword, 
+        bool accType
+    ) {
+        CustomerAccount* newAccount = new CustomerAccount(accUserName, accPassword, accType);
+        newAccount->customerAccountNumber = accNumber;
+        newAccount->customerAccountBalance = accBalance;
         if (head == 0) {
             head = newAccount;
             cout << "\n\n" << setw(80) << "Your Account Has Been Created\n" << endl;
@@ -42,9 +131,51 @@ public:
         }
     }
 
+    void readDataFromFile() {
+        CustomerAccount* temp = head; string line;
+        string accountTypeString = "";
+        string accountBalanceString = "";
+        string accountPasswordString = "";
+        string accountNameString = "";
+        string accountNumberString = "";
+        bool accountType = false;
+
+        ifstream customerDataREAD;
+        customerDataREAD.open("database/customerData.csv", ios::in | ios::app);
+        
+        if (customerDataREAD.is_open()) {
+            while (getline(customerDataREAD, line)) {
+                stringstream ss(line);
+                getline(ss, accountNumberString, ',');
+                getline(ss, accountBalanceString, ',');
+                getline(ss, accountNameString, ',');
+                getline(ss, accountPasswordString, ',');
+                getline(ss, accountTypeString, ',');
+
+                if (accountTypeString == "true") { accountType = true; }
+                else { accountType = false; }
+
+
+                if (line != "") {
+                    pushCustomerAccount(
+                        accountNumberString,
+                        stoi(accountBalanceString),
+                        accountNameString,
+                        stoi(accountPasswordString),
+                        accountType
+                    );
+                }
+            }
+        }
+        else { cout << "\n\nFile Not Open" << endl; }
+
+        customerDataREAD.close();
+    }
+
     CustomerAccount* searchCustomerAccount(string accNum) {
         bool check = false;
         CustomerAccount* temp = head;
+        
         if (head == 0) {
             cout << "There is No Account Data" << endl;
         }
@@ -68,6 +199,7 @@ public:
     void removeCustomerAccount(string accNum) {
         CustomerAccount* accountTodelete = searchCustomerAccount(accNum);
         CustomerAccount* temp = accountTodelete->prevCustomer;
+        
         if (accountTodelete == NULL) {
             cout << "\n" << setw(80) << "Account Not Found" << endl;
         }
@@ -93,6 +225,8 @@ public:
                     temp->nextCustomer = accountTodelete->nextCustomer;
                     temp->nextCustomer->prevCustomer = accountTodelete->prevCustomer;
                 }
+
+                updateFullFile();
             }
         }
     }
@@ -135,16 +269,22 @@ public:
     void updateCustomerAccountUserName(string accNum, string userName) {
         CustomerAccount* accToUpdate = searchCustomerAccount(accNum);
         accToUpdate->customerAccountUserName = userName;
+
+        updateFullFile();
     }
 
     void updateCustomerAccountPassword(string accNum, int password) {
         CustomerAccount* accToUpdate = searchCustomerAccount(accNum);
         accToUpdate->customerAccountPassword = password;
+
+        updateFullFile();
     }
 
     void updateCustomerAccountBalance(string accNum, int balance) {
         CustomerAccount* accToUpdate = searchCustomerAccount(accNum);
         accToUpdate->customerAccountBalance = balance;
+
+        updateFullFile();
     }
 
     void displayCustomerAccountsData() {
@@ -198,8 +338,55 @@ public:
     EmployeeAccount* head;
     EmployeeAccountDataList() { head = 0; }
 
-    void createNewEmployeeAccount() {
-        EmployeeAccount* newAccount = new EmployeeAccount(getAccountUserName(), generateEmployeeAccountNumber(), getAccountPassword());
+    void writeDataOnFile(
+        string accNum,
+        string accName,
+        int accPass
+    ) {
+        ofstream employeeDataWRITE;
+        employeeDataWRITE.open("database/employeeData.csv", ios::app);
+
+        if (employeeDataWRITE.is_open()) {
+            employeeDataWRITE
+                << accNum << ","
+                << accName << ","
+                << accPass << "," << endl;
+        }
+        else { cout << "\n\nFile Not Open" << endl; }
+
+        employeeDataWRITE.close();
+    }
+
+    void updateFullFile() {
+        EmployeeAccount* temp = head;
+        ofstream employeeDataWRITE;
+        employeeDataWRITE.open("database/employeeData.csv", ios::trunc);
+
+        if (employeeDataWRITE.is_open()) {
+            while (temp != 0) {
+                employeeDataWRITE
+                    << temp->employeeAccountNumber << ","
+                    << temp->employeeAccountName << ","
+                    << temp->employeeAccountPassword << "," << endl;
+                temp = temp->nextEmployee;
+            }
+        }
+        else { cout << "\n\nFile Not Open" << endl; }
+
+        employeeDataWRITE.close();
+    }
+
+    void createNewEmployeeAccount(
+        string accNumber,
+        string accUserName,
+        int accPassword
+    ) {
+        EmployeeAccount* newAccount = new EmployeeAccount(
+            accUserName,
+            accNumber,
+            accPassword
+        );
+
         if (head == 0) {
             head = newAccount;
             cout << "\n\n" << setw(80) << "Your Employee Account Has Been Created\n" << endl;
@@ -210,6 +397,67 @@ public:
             head = newAccount;
             cout << "\n\n" << setw(80) << "Your Employee Account Has Been Created\n" << endl;
         }
+
+        writeDataOnFile(
+            accNumber,
+            accUserName,
+            accPassword
+        );
+
+    }
+
+    void pushEmployeeAccount(
+        string accNumber,
+        string accUserName,
+        int accPassword
+    ) {
+        EmployeeAccount* newAccount = new EmployeeAccount(
+            accUserName,
+            accNumber,
+            accPassword
+        );
+
+        if (head == 0) {
+            head = newAccount;
+            cout << "\n\n" << setw(80) << "Your Employee Account Has Been Created\n" << endl;
+        }
+        else {
+            newAccount->nextEmployee = head;
+            head->prevEmployee = newAccount;
+            head = newAccount;
+            cout << "\n\n" << setw(80) << "Your Employee Account Has Been Created\n" << endl;
+        }
+    }
+
+    void readDataFromFile() {
+        EmployeeAccount* temp = head; string line;
+        string accountPasswordString = "";
+        string accountNameString = "";
+        string accountNumberString = "";
+
+        ifstream employeeDataREAD;
+        employeeDataREAD.open("database/employeeData.csv", ios::app);
+
+        if (employeeDataREAD.is_open()) {
+            while (getline(employeeDataREAD, line)) {
+
+                stringstream ss(line);
+                getline(ss, accountNumberString, ',');
+                getline(ss, accountNameString, ',');
+                getline(ss, accountPasswordString, ',');
+
+                if (line != "") {
+                    pushEmployeeAccount(
+                        accountNumberString,
+                        accountNameString,
+                        stoi(accountPasswordString)
+                    );
+                }
+            }
+        }
+        else { cout << "\n\nFile Not Open" << endl; }
+
+        employeeDataREAD.close();
     }
 
     EmployeeAccount* searchEmployeeAccount(string accNum) {
@@ -263,8 +511,26 @@ public:
                     temp->nextEmployee = accountTodelete->nextEmployee;
                     temp->nextEmployee->prevEmployee = accountTodelete->prevEmployee;
                 }
+
+                updateFullFile();
             }
         }
+    }
+
+    
+
+    void updateCustomerAccountUserName(string accNum, string userName) {
+        EmployeeAccount* accToUpdate = searchEmployeeAccount(accNum);
+        accToUpdate->employeeAccountName = userName;
+
+        updateFullFile();
+    }
+
+    void updateCustomerAccountPassword(string accNum, int password) {
+        EmployeeAccount* accToUpdate = searchEmployeeAccount(accNum);
+        accToUpdate->employeeAccountPassword = password;
+
+        updateFullFile();
     }
 
     bool logIn(EmployeeAccount* logInAccount, int passW) {
@@ -317,45 +583,192 @@ public:
 };
 
 class ATM{
-    
+    CustomerAccount* loggedInAccount;
+    stack<string> atmHistory;
+    stack<string> sessions;
+    string currSession;
+    string queueSession;
+    CustomerAccount* head;
 public:
-    ATM() {}
+    ATM() {
+        loggedInAccount = 0; 
+        head = 0;
+    }
 
-    CustomerAccount* atmLogIn(CustomerAccount* loggedInAccount, int passW) {
+    void setHead(CustomerAccount* temp) {
+        head = temp;
+    }
+
+    void updateFullFile(CustomerAccount* temp) {
+        ofstream customerDataWRITE;
+        customerDataWRITE.open("database/customerData.csv", ios::trunc);
+
+        if (customerDataWRITE.is_open()) {
+            while (temp != 0) {
+                customerDataWRITE
+                    << temp->customerAccountNumber << ","
+                    << temp->customerAccountBalance << ","
+                    << temp->customerAccountUserName << ","
+                    << temp->customerAccountPassword << ","
+                    << temp->customerAccountType << "," << endl;
+                temp = temp->nextCustomer;
+            }
+        }
+        else { cout << "\n\nFile Not Open" << endl; }
+
+        customerDataWRITE.close();
+    }
+
+    void saveSessionName() {
+        ofstream writeFile;
+        writeFile.open("database/atmRecords/historySessionsNames.csv", ios::app);
+        if (writeFile.is_open()) {
+            writeFile << loggedInAccount->customerAccountNumber + currSession << endl;
+        }
+        else {
+            cout << "File Not Open" << endl;
+        }
+        writeFile.close();
+    }
+
+    void readSessionName() {
+        string line;
+        ifstream readFile;
+        readFile.open("database/atmRecords/historySessionsNames.csv");
+        if (readFile.is_open()) {
+            while (getline(readFile, line)) {
+                sessions.push(line);
+            }
+        }
+        else {
+            cout << "File Not Open" << endl;
+        }
+        readFile.close();
+    }
+
+    void saveSession() {
+        ofstream writeFile;
+        writeFile.open("database/atmRecords/historySessions/" + loggedInAccount->customerAccountNumber + currSession + ".csv", ios::app);
+        if (writeFile.is_open()) {
+            while (!atmHistory.empty()) {
+                writeFile << atmHistory.top() << endl;
+                atmHistory.pop();
+            }
+        }
+        else {
+            cout << "File Not Open" << endl;
+        }
+        writeFile.close();
+    }
+
+    void readSession() {
+        string line;
+        while (!sessions.empty()) {
+            queueSession = sessions.top();
+            sessions.pop();
+            if (queueSession[4] == loggedInAccount->customerAccountNumber[4]) {
+                cout << "----------------------------------------" << endl;
+                ifstream readFile;
+                readFile.open("database/atmRecords/historySessions/" + queueSession + ".csv");
+                if (readFile.is_open()) {
+                    while (getline(readFile, line)) {
+                        cout << line << endl;
+                    }
+                }
+                else {
+                    cout << "File Not Open" << endl;
+                }
+                readFile.close();
+            }
+        }
+    }
+
+    CustomerAccount* atmLogIn(
+        CustomerAccount* accNumber, 
+        int passW
+    ) {
         bool isLogedIn = false;
-        if (loggedInAccount != NULL) {
-            if (loggedInAccount->customerAccountPassword == passW) {
+        if (accNumber != NULL) {
+            if (accNumber->customerAccountPassword == passW) {
+                loggedInAccount = accNumber;
+                atmHistory.push(loggedInAccount->customerAccountNumber + " logged in to the Account");
                 isLogedIn = true;
             }
         }
 
         if (isLogedIn) {
-            return loggedInAccount;
+            readAccSeries();
+            currSession = "session" + to_string(++num3);
+            writeAccSeries();
+            return accNumber;
         }
         else {
             return NULL;
         }
     }
 
-    void depositMoney(CustomerAccount* loggedInAcc, int depAmount) {
-        loggedInAcc->customerAccountBalance += depAmount;
+    void depositMoney(
+        int depAmount
+    ) {
+        loggedInAccount->customerAccountBalance += depAmount;
+        atmHistory.push(
+            "Deposited Money " 
+            + to_string(depAmount) 
+            + " to Account " 
+            + loggedInAccount->customerAccountNumber
+        );
+        updateFullFile(head);
     }
 
-    void withdrawMoney(CustomerAccount* loggedInAcc, int depAmount) {
-        loggedInAcc->customerAccountBalance -= depAmount;
+    void withdrawMoney(
+        int witAmount
+    ) {
+        loggedInAccount->customerAccountBalance -= witAmount;
+        atmHistory.push(
+            "Withdraw Money " 
+            + to_string(witAmount) 
+            + " from Account " 
+            + loggedInAccount->customerAccountNumber
+        );
+        updateFullFile(head);
     }
 
-    void transferMoney(CustomerAccount* loggedInAcc, CustomerAccount* recieverAccNum, int amount) {
-        withdrawMoney(loggedInAcc, amount);
-        depositMoney(loggedInAcc, amount);
+    void transferMoney( 
+        CustomerAccount* recieverAccNum, 
+        int amount
+    ) {
+        loggedInAccount->customerAccountBalance -= amount;
+        recieverAccNum->customerAccountBalance += amount;
+        atmHistory.push(
+            "Transfered Money " 
+            + to_string(amount) 
+            + " from Account " 
+            + loggedInAccount->customerAccountNumber 
+            + " to Account " 
+            + recieverAccNum->customerAccountNumber
+        );
+        updateFullFile(head);
     }
 
-    void changePassword(CustomerAccount* loggedInAcc, int passW) {
-        loggedInAcc->customerAccountPassword = passW;
+    void changePassword(
+        int passW
+    ) {
+        loggedInAccount->customerAccountPassword = passW;
+        atmHistory.push("Changed Password of Account " + loggedInAccount->customerAccountNumber );
+        updateFullFile(head);
     }
+
+    void displayBalance() { cout << loggedInAccount->customerAccountBalance; }
 
     void transactionHistory() {
+        readSessionName();
+        readSession();
+    }
 
+    ~ATM() {
+        atmHistory.push(loggedInAccount->customerAccountNumber + " Logged Out");
+        saveSessionName();
+        saveSession();
     }
 };
 
@@ -365,5 +778,9 @@ public:
     CustomerAccountDataList CADL;
     EmployeeAccountDataList EADL;
 
-    Bank() {}
+    Bank() {
+        CADL.readDataFromFile();
+        EADL.readDataFromFile();
+        moneyMachine.setHead(CADL.head);
+    }
 };

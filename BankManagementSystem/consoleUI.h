@@ -1,3 +1,38 @@
+
+
+void readAccSeries() {
+	string line;
+	string numString, num1String, num2String, num3String;
+
+	ifstream readFile;
+	readFile.open("database/accountSeriesNumber.csv");
+	if (readFile.is_open()) {
+		while (getline(readFile, line)) {
+			stringstream ss(line);
+			getline(ss, numString, ',');
+			num = stoi(numString);
+			getline(ss, num1String, ',');
+			num1 = stoi(num1String);
+			getline(ss, num2String, ',');
+			num2 = stoi(num2String);
+			getline(ss, num3String, ',');
+			num3 = stoi(num3String);
+		}
+	}
+	else { cout << "File not open" << endl; }
+	readFile.close();
+}
+
+void writeAccSeries() {
+	ofstream writeFile;
+	writeFile.open("database/accountSeriesNumber.csv");
+	if (writeFile.is_open()) {
+		writeFile << num << "," << num1 << "," << num2 << "," << num3 << ",";
+	}
+	else { cout << "File not open" << endl; }
+	writeFile.close();
+}
+
 string getAccountUserName() {
 	string accName = " ";
 	cout << setfill(' ');
@@ -32,19 +67,19 @@ string getAccountNumber() {
 }
 
 string generateCustomerAccountNumber() {
+	readAccSeries();
 	const string CACN = "CACN";
-	static int num = 0;
 	string accNum = CACN;
 	accNum = accNum + to_string(++num);
+	writeAccSeries();
 	return accNum;
 }
 
 string generateEmployeeAccountNumber() {
+	readAccSeries();
 	const string EACN = "EACN";
 	const string MACN = "Manager";
 	string accNum = "";
-	static int num1 = 0;
-	static int num2 = 0;
 	int choice = 0;
 
 	cout << "[0] Employee | [1] Manager >> ";
@@ -63,6 +98,7 @@ string generateEmployeeAccountNumber() {
 			break;
 		}
 	}
+	writeAccSeries();
 	return accNum;
 }
 
