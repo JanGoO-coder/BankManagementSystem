@@ -28,12 +28,15 @@ public:
         this->customerAccountPassword = customerAccountPassword;
         this->nextCustomer = 0; this->prevCustomer = 0;
     }
+
+    ~CustomerAccount() {}
 };
 
 class CustomerAccountDataList {
 public:
     CustomerAccount* head;
     CustomerAccountDataList() { head = 0; }
+    ~CustomerAccountDataList() {}
     friend class ATM;
 
     void writeDataOnFile(
@@ -282,7 +285,7 @@ public:
 
     void updateCustomerAccountBalance(string accNum, int balance) {
         CustomerAccount* accToUpdate = searchCustomerAccount(accNum);
-        accToUpdate->customerAccountBalance = balance;
+        accToUpdate->customerAccountBalance += balance;
 
         updateFullFile();
     }
@@ -316,6 +319,42 @@ public:
             }
         }
     }
+
+    void searchCustomerAccountsWithFirstLetter(char firstLetter) {
+        CustomerAccount* temp = head;
+        string accType = "";
+        bool isFound = false;
+        cout << setw(20) << "Account Number | "
+            << setw(20) << "Account Name | "
+            << setw(20) << "Account Type | "
+            << setw(20) << "Account Balance" << endl;
+        if (head == 0) {
+            cout << "\nThere is no Account Data" << endl;
+        }
+        else {
+            while (temp != 0) {
+                if (firstLetter == temp->customerAccountUserName[0]) {
+                    if (temp->customerAccountType)
+                        accType = "Saving Account";
+                    else
+                        accType = "Current Account";
+
+                    cout << setw(17) << temp->customerAccountNumber << " | "
+                        << setw(17) << temp->customerAccountUserName << " | "
+                        << setw(17) << accType << " | "
+                        << setw(20) << temp->customerAccountBalance << endl;
+                    temp = temp->nextCustomer;
+                    isFound = true;
+                }
+                temp = temp->nextCustomer;
+            }
+
+            if (!isFound)
+                cout << "\nNo User Found with Name starting with " << firstLetter << endl;
+            else
+                cout << "\nAll Userers with Name starting with " << firstLetter << " has been diplayed" << endl;
+        }
+    }
 };
 
 class EmployeeAccount {
@@ -331,12 +370,15 @@ public:
         this->employeeAccountName = employeeAccountName;
         this->employeeAccountPassword = employeeAccountPassword;
     }
+
+    ~EmployeeAccount() {}
 };
 
 class EmployeeAccountDataList {
 public:
     EmployeeAccount* head;
     EmployeeAccountDataList() { head = 0; }
+    ~EmployeeAccountDataList() {}
 
     void writeDataOnFile(
         string accNum,
@@ -580,6 +622,35 @@ public:
             }
         }
     }
+
+    void searchEmployeeAccountsWithFirstLetter(char firstLetter) {
+        EmployeeAccount* temp = head;
+        bool isFound = false;
+
+        cout << setw(20) << "Account Number | "
+            << setw(20) << "Account Name | "
+            << setw(17) << "Account Type" << endl;
+        
+        if (head == 0) {
+            cout << "\nThere is no Account Data" << endl;
+        }
+        else {
+            while (temp != 0) {
+                if (firstLetter == temp->employeeAccountName[0]) {
+                    cout << setw(17) << temp->employeeAccountNumber << " | "
+                        << setw(17) << temp->employeeAccountName << " | "
+                        << setw(17) << "Employee" << endl;
+                    isFound = true;
+                }
+                temp = temp->nextEmployee;
+            }
+
+            if (!isFound)
+                cout << "\nNo User Found with Name starting with " << firstLetter << endl;
+            else
+                cout << "\nAll Userers with Name starting with " << firstLetter << " has been diplayed" << endl;
+        }
+    }
 };
 
 class ATM{
@@ -774,13 +845,21 @@ public:
 
 class Bank{
 public:
+    string branchName;
+    int branchCode;
+
     ATM moneyMachine;
     CustomerAccountDataList CADL;
     EmployeeAccountDataList EADL;
 
     Bank() {
+        branchName = "JanGoO Bank, Pakpattan Road, Pakpattan Sharif";
+        branchCode = 60205;
+
         CADL.readDataFromFile();
         EADL.readDataFromFile();
         moneyMachine.setHead(CADL.head);
     }
+
+    ~Bank() {}
 };

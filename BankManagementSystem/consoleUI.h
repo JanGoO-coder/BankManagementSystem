@@ -108,3 +108,9 @@ int getAmount() {
 	cin >> ammount;
 	return ammount;
 }
+
+char getFirstLetter() {
+	char firstL;
+	cout << "Enter The First Letter of Account User Name to Search: "; cin >> firstL;
+	return firstL;
+}

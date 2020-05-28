@@ -20,7 +20,10 @@ int employeeUpdateMenu()
 	bool running = true;
 	string accNumber = "";
 
-	gotoXY(18, 5); cout << "Sub Menu";
+	cout << user.branchName << endl;
+	cout << "Branch Code: " << user.branchCode << endl;
+
+	gotoXY(18, 5); cout << "Change What?";
 	gotoXY(18, 7); cout << "> ";
 
 	while (running)
@@ -97,7 +100,10 @@ int customerUpdateMenu()
 	bool running = true;
 	string accNumber = "";
 
-	gotoXY(18, 5); cout << "Sub Menu";
+	cout << user.branchName << endl;
+	cout << "Branch Code: " << user.branchCode << endl;
+
+	gotoXY(18, 5); cout << "Change What?";
 	gotoXY(18, 7); cout << "> ";
 
 	while (running)
@@ -174,7 +180,10 @@ int updateMenu()
 	bool running = true;
 	string accNumber = "";
 
-	gotoXY(18, 5); cout << "Sub Menu";
+	cout << user.branchName << endl;
+	cout << "Branch Code: " << user.branchCode << endl;
+
+	gotoXY(18, 5); cout << "Change What?";
 	gotoXY(18, 7); cout << "> ";
 
 	while (running)
@@ -250,7 +259,10 @@ int managerMiniMenu_0()
 	int menu_item = 0, x = 7;
 	bool runningManagerMiniMenu = true;
 
-	gotoXY(18, 5); cout << "Sub Menu";
+	cout << user.branchName << endl;
+	cout << "Branch Code: " << user.branchCode << endl;
+
+	gotoXY(18, 5); cout << "Select Catagory";
 	gotoXY(18, 7); cout << "> ";
 
 	while (runningManagerMiniMenu)
@@ -329,7 +341,10 @@ int managerMiniMenu_1()
 	int menu_item = 0, x = 7;
 	bool runningManagerMiniMenu = true;
 
-	gotoXY(18, 5); cout << "Sub Menu";
+	cout << user.branchName << endl;
+	cout << "Branch Code: " << user.branchCode << endl;
+
+	gotoXY(18, 5); cout << "Select Catagory";
 	gotoXY(18, 7); cout << "> ";
 	string accNumber = "";
 
@@ -405,7 +420,10 @@ int managerMiniMenu_2()
 	int menu_item = 0, x = 7;
 	bool runningManagerMiniMenu = true;
 
-	gotoXY(18, 5); cout << "Sub Menu";
+	cout << user.branchName << endl;
+	cout << "Branch Code: " << user.branchCode << endl;
+
+	gotoXY(18, 5); cout << "Select Catagory";
 	gotoXY(18, 7); cout << "> ";
 
 	while (runningManagerMiniMenu)
@@ -474,7 +492,10 @@ int managerMiniMenu_3()
 	int menu_item = 0, x = 7;
 	bool runningManagerMiniMenu = true;
 
-	gotoXY(18, 5); cout << "Sub Menu";
+	cout << user.branchName << endl;
+	cout << "Branch Code: " << user.branchCode << endl;
+
+	gotoXY(18, 5); cout << "Select Catagory";
 	gotoXY(18, 7); cout << "> ";
 
 	while (runningManagerMiniMenu)
@@ -544,7 +565,10 @@ int managerMiniMenu_4()
 	bool runningManagerMiniMenu = true;
 	string accNumber = "";
 
-	gotoXY(18, 5); cout << "Sub Menu";
+	cout << user.branchName << endl;
+	cout << "Branch Code: " << user.branchCode << endl;
+
+	gotoXY(18, 5); cout << "Select Catagory";
 	gotoXY(18, 7); cout << "> ";
 
 	while (runningManagerMiniMenu)
@@ -618,7 +642,10 @@ int managerMiniMenu_5()
 	int menu_item = 0, x = 7;
 	bool runningManagerMiniMenu = true;
 
-	gotoXY(18, 5); cout << "Sub Menu";
+	cout << user.branchName << endl;
+	cout << "Branch Code: " << user.branchCode << endl;
+
+	gotoXY(18, 5); cout << "Select Catagory";
 	gotoXY(18, 7); cout << "> ";
 
 	while (runningManagerMiniMenu)
@@ -654,14 +681,14 @@ int managerMiniMenu_5()
 			case 0: {
 				system("cls");
 				gotoXY(20, 16);
-				//
+				user.EADL.searchEmployeeAccountsWithFirstLetter(getFirstLetter());
 				break;
 			}
 
 			case 1: {
 				system("cls");
 				gotoXY(20, 16);
-				//
+				user.CADL.searchCustomerAccountsWithFirstLetter(getFirstLetter());
 				break;
 			}
 
@@ -688,7 +715,10 @@ int managerSubMenu()
 	int menu_item = 0, x = 7;
 	bool runningManagerSubMenu = true;
 
-	gotoXY(18, 5); cout << "Sub Menu";
+	cout << user.branchName << endl;
+	cout << "Branch Code: " << user.branchCode << endl;
+
+	gotoXY(18, 5); cout << "Manager Logged In";
 	gotoXY(18, 7); cout << "> ";
 
 	while (runningManagerSubMenu)
@@ -698,7 +728,7 @@ int managerSubMenu()
 		gotoXY(20, 9);  cout << "[2] Modify Account";
 		gotoXY(20, 10); cout << "[3] Record Inquiry";
 		gotoXY(20, 11); cout << "[4] Account Inquiry";
-		gotoXY(20, 12); cout << "[5] Account Statement";
+		gotoXY(20, 12); cout << "[5] Search Account";
 		gotoXY(20, 13); cout << "[6] LOG OUT";
 
 		system("pause>nul"); // the >nul bit causes it the print no message
@@ -791,7 +821,10 @@ int bankSubMenu()
 	bool runningSubMenu = true;
 	string accNumber = "";
 
-	gotoXY(18, 5); cout << "Sub Menu";
+	cout << user.branchName << endl;
+	cout << "Branch Code: " << user.branchCode << endl;
+
+	gotoXY(18, 5); cout << "Employee Logged In";
 	gotoXY(18, 7); cout << "> ";
 
 	while (runningSubMenu)
@@ -801,7 +834,7 @@ int bankSubMenu()
 		gotoXY(20, 9);  cout << "[2] Modify Account";
 		gotoXY(20, 10); cout << "[3] Record Inquiry";
 		gotoXY(20, 11); cout << "[4] Account Inquiry";
-		gotoXY(20, 12); cout << "[5] Account Statement";
+		gotoXY(20, 12); cout << "[5] Search Accounts";
 		gotoXY(20, 13); cout << "[6] LOG OUT";
 
 		system("pause>nul"); // the >nul bit causes it the print no message
@@ -878,7 +911,7 @@ int bankSubMenu()
 				case 5: {
 					system("cls");
 					gotoXY(20, 16);
-					
+					user.CADL.searchCustomerAccountsWithFirstLetter(getFirstLetter());
 					break;
 				}
 
@@ -906,14 +939,21 @@ int atmSubMenu(CustomerAccount* loggedInAccountNumber)
 	bool runningSubMenu = true;
 	string accNumber = "";
 
-	gotoXY(18, 5); cout << "Sub Menu";
+	cout << user.branchName << endl;
+	cout << "Branch Code: " << user.branchCode << endl;
+
+	gotoXY(18, 5); cout << "Now " 
+		<< loggedInAccountNumber->customerAccountUserName 
+		<< " with Account Number " 
+		<< loggedInAccountNumber->customerAccountNumber 
+		<< " is Logged In";
 	gotoXY(18, 7); cout << "> ";
 
 	while (runningSubMenu)
 	{
 		gotoXY(20, 7);  cout << "[0] Deposite Money";
 		gotoXY(20, 8);  cout << "[1] Withdraw Money";
-		gotoXY(20, 9);  cout << "[2] Transfer MOney";
+		gotoXY(20, 9);  cout << "[2] Transfer Money";
 		gotoXY(20, 10); cout << "[3] Change Password";
 		gotoXY(20, 11); cout << "[4] Banlance Inquiry";
 		gotoXY(20, 12); cout << "[5] Account Statement";
@@ -1026,14 +1066,17 @@ int bankMenu()
 	bool running = true;
 	string accNumber = " ";
 
-	gotoXY(18, 5); cout << "Main Menu";
+	cout << user.branchName << endl;
+	cout << "Branch Code: " << user.branchCode << endl;
+
+	gotoXY(18, 5); cout << "Staff Inside Bank";
 	gotoXY(18, 7); cout << "> ";
 
 	while (running)
 	{
 		gotoXY(20, 7);  cout << "[0] LOG IN";
 		gotoXY(20, 8);  cout << "[1] SIGN UP";
-		gotoXY(20, 9);  cout << "[2] QUIT";
+		gotoXY(20, 9);  cout << "[2] Go Back";
 
 		system("pause>nul"); // the >nul bit causes it the print no message
 
@@ -1093,7 +1136,7 @@ int bankMenu()
 
 				case 2: {
 					gotoXY(20, 16);
-					cout << "The program has now terminated!!";
+					cout << "Back To the Entry Point ...";
 					running = false;
 					break;
 				}
@@ -1115,13 +1158,16 @@ int atmMenu()
 	bool running = true;
 	string accNumber = " ";
 
-	gotoXY(18, 5); cout << "Main Menu";
+	cout << user.branchName << endl;
+	cout << "Branch Code: " << user.branchCode << endl;
+
+	gotoXY(18, 5); cout << "Standing In Front of ATM Machine";
 	gotoXY(18, 7); cout << "> ";
 
 	while (running)
 	{
 		gotoXY(20, 7);  cout << "[0] LOG IN";
-		gotoXY(20, 8);  cout << "[1] QUIT";
+		gotoXY(20, 8);  cout << "[1] Get Out of the ATM Room";
 
 		system("pause>nul"); // the >nul bit causes it the print no message
 
@@ -1166,7 +1212,7 @@ int atmMenu()
 
 			case 1: {
 				gotoXY(20, 16);
-				cout << "The program has now terminated!!";
+				cout << "Your are now back on street ...";
 				running = false;
 				break;
 			}
@@ -1188,14 +1234,17 @@ int entryPoint()
 	bool running = true;
 	string accNumber = " ";
 
-	gotoXY(18, 5); cout << "Main Menu";
+	cout << user.branchName << endl;
+	cout << "Branch Code: " << user.branchCode << endl;
+
+	gotoXY(18, 5); cout << "Standing Outside Bank";
 	gotoXY(18, 7); cout << "> ";
 
 	while (running)
 	{
-		gotoXY(20, 7);  cout << "[0] BANK";
-		gotoXY(20, 8);  cout << "[1] ATM";
-		gotoXY(20, 9);  cout << "[2] QUIT";
+		gotoXY(20, 7);  cout << "[0] Get Inside BANK";
+		gotoXY(20, 8);  cout << "[1] Get INside ATM";
+		gotoXY(20, 9);  cout << "[2] Go Back Home";
 
 		system("pause>nul"); // the >nul bit causes it the print no message
 
@@ -1239,7 +1288,7 @@ int entryPoint()
 
 			case 2: {
 				gotoXY(20, 16);
-				cout << "The program has now terminated!!";
+				cout << "Your Safely Reached Home ...";
 				running = false;
 				break;
 			}
