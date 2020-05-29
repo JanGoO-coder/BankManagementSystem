@@ -341,6 +341,8 @@ public:
                     temp = temp->nextCustomer;
                     isFound = true;
                 }
+                if (temp == 0)
+                    break;
                 temp = temp->nextCustomer;
             }
 

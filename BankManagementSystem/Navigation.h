@@ -687,7 +687,7 @@ int managerMiniMenu_5()
 					gotoXY(20, 16);
 
 					firstLetter = getFirstLetter();
-					toupper(firstLetter);
+					firstLetter = toupper(firstLetter);
 
 					user.EADL.searchEmployeeAccountsWithFirstLetter(firstLetter);
 					break;
@@ -698,7 +698,7 @@ int managerMiniMenu_5()
 					gotoXY(20, 16);
 
 					firstLetter = getFirstLetter();
-					toupper(firstLetter);
+					firstLetter = toupper(firstLetter);
 
 					user.CADL.searchCustomerAccountsWithFirstLetter(firstLetter);
 					break;
