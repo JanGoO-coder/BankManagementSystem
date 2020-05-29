@@ -1,9 +1,4 @@
-//#include <iostream>
-//#include <conio.h>
-//#include <windows.h>
-//#include <cstdlib>
-//
-//using namespace std;
+// Labraries Are Handled in the "BankManagementSyetem.cpp" File
 
 HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE); // used for goto
 COORD CursorPosition; // used for goto
@@ -56,33 +51,33 @@ int employeeUpdateMenu()
 
 			switch (menu_item) {
 
-			case 0: {
-				system("cls");
-				gotoXY(20, 16);
+				case 0: {
+					system("cls");
+					gotoXY(20, 16);
 
-				accNumber = getAccountNumber();
+					accNumber = getAccountNumber();
 
-				user.EADL.updateCustomerAccountUserName(accNumber, getAccountUserName());
-				break;
-			}
+					user.EADL.updateCustomerAccountUserName(accNumber, getAccountUserName());
+					break;
+				}
 
-			case 1: {
-				system("cls");
-				gotoXY(20, 16);
+				case 1: {
+					system("cls");
+					gotoXY(20, 16);
 
-				accNumber = getAccountNumber();
+					accNumber = getAccountNumber();
 
-				user.EADL.updateCustomerAccountPassword(accNumber, getAccountPassword());
-				break;
-			}
+					user.EADL.updateCustomerAccountPassword(accNumber, getAccountPassword());
+					break;
+				}
 
-			case 2: {
-				system("cls");
-				gotoXY(20, 16);
-				cout << "You are now loged out" << endl;
-				running = false;
-				break;
-			}
+				case 2: {
+					system("cls");
+					gotoXY(20, 16);
+					cout << "You are now loged out" << endl;
+					running = false;
+					break;
+				}
 			}
 
 		}
@@ -110,11 +105,12 @@ int customerUpdateMenu()
 	{
 		gotoXY(20, 7);  cout << "[0] Change Account User Name";
 		gotoXY(20, 8);  cout << "[1] Change Account Password";
-		gotoXY(20, 9);  cout << "[2] Quit";
+		gotoXY(20, 9);  cout << "[2] Change Account Balance";
+		gotoXY(20, 10);  cout << "[3] Quit";
 
 		system("pause>nul"); // the >nul bit causes it the print no message
 
-		if (GetAsyncKeyState(VK_DOWN) && x != 9) //down button pressed
+		if (GetAsyncKeyState(VK_DOWN) && x != 10) //down button pressed
 		{
 			gotoXY(18, x); cout << "  ";
 			x++;
@@ -136,113 +132,43 @@ int customerUpdateMenu()
 
 			switch (menu_item) {
 
-			case 0: {
-				system("cls");
-				gotoXY(20, 16);
+				case 0: {
+					system("cls");
+					gotoXY(20, 16);
 
-				accNumber = getAccountNumber();
+					accNumber = getAccountNumber();
 
-				user.CADL.updateCustomerAccountUserName(accNumber, getAccountUserName());
-				break;
-			}
+					user.CADL.updateCustomerAccountUserName(accNumber, getAccountUserName());
+					break;
+				}
 
-			case 1: {
-				system("cls");
-				gotoXY(20, 16);
+				case 1: {
+					system("cls");
+					gotoXY(20, 16);
 
-				accNumber = getAccountNumber();
+					accNumber = getAccountNumber();
 
-				user.CADL.updateCustomerAccountPassword(accNumber, getAccountPassword());
-				break;
-			}
+					user.CADL.updateCustomerAccountPassword(accNumber, getAccountPassword());
+					break;
+				}
 
-			case 2: {
-				system("cls");
-				gotoXY(20, 16);
-				cout << "You are now loged out" << endl;
-				running = false;
-				break;
-			}
-			}
+				case 2: {
+					system("cls");
+					gotoXY(20, 16);
 
-		}
+					accNumber = getAccountNumber();
 
-	}
+					user.CADL.updateCustomerAccountBalance(accNumber, getAmount());
+					break;
+				}
 
-	gotoXY(20, 21);
-	return 0;
-}
-
-int updateMenu()
-{
-	system("cls");
-	int menu_item = 0, x = 7;
-	bool running = true;
-	string accNumber = "";
-
-	cout << user.branchName << endl;
-	cout << "Branch Code: " << user.branchCode << endl;
-
-	gotoXY(18, 5); cout << "Change What?";
-	gotoXY(18, 7); cout << "> ";
-
-	while (running)
-	{
-		gotoXY(20, 7);  cout << "[0] Change Account User Name";
-		gotoXY(20, 8);  cout << "[1] Change Account Password";
-		gotoXY(20, 9);  cout << "[2] Quit";
-
-		system("pause>nul"); // the >nul bit causes it the print no message
-
-		if (GetAsyncKeyState(VK_DOWN) && x != 9) //down button pressed
-		{
-			gotoXY(18, x); cout << "  ";
-			x++;
-			gotoXY(18, x); cout << "> ";
-			menu_item++;
-			continue;
-		}
-
-		if (GetAsyncKeyState(VK_UP) && x != 7) //up button pressed
-		{
-			gotoXY(18, x); cout << "  ";
-			x--;
-			gotoXY(18, x); cout << "> ";
-			menu_item--;
-			continue;
-		}
-
-		if (GetAsyncKeyState(VK_RETURN)) { // Enter key pressed
-
-			switch (menu_item) {
-
-			case 0: {
-				system("cls");
-				gotoXY(20, 16);
-
-				accNumber = getAccountNumber();
-
-				user.CADL.updateCustomerAccountUserName(accNumber, getAccountUserName());
-				break;
-			}
-
-			case 1: {
-				system("cls");
-				gotoXY(20, 16);
-
-				accNumber = getAccountNumber();
-
-				user.CADL.updateCustomerAccountPassword(accNumber, getAccountPassword());
-				break;
-			}
-
-			case 2: {
-				system("cls");
-				gotoXY(20, 16);
-				cout << "You are now loged out" << endl;
-				running = false;
-				break;
-			}
+				case 3: {
+					system("cls");
+					gotoXY(20, 16);
+					cout << "You are now loged out" << endl;
+					running = false;
+					break;
+				}
 			}
 
 		}
@@ -378,33 +304,33 @@ int managerMiniMenu_1()
 
 			switch (menu_item) {
 
-			case 0: {
-				system("cls");
-				gotoXY(20, 16);
+				case 0: {
+					system("cls");
+					gotoXY(20, 16);
 
-				accNumber = getAccountNumber();
+					accNumber = getAccountNumber();
 
-				user.EADL.removeEmployeeAccount(accNumber);
-				break;
-			}
+					user.EADL.removeEmployeeAccount(accNumber);
+					break;
+				}
 
-			case 1: {
-				system("cls");
-				gotoXY(20, 16);
+				case 1: {
+					system("cls");
+					gotoXY(20, 16);
 
-				accNumber = getAccountNumber();
+					accNumber = getAccountNumber();
 
-				user.CADL.removeCustomerAccount(accNumber);
-				break;
-			}
+					user.CADL.removeCustomerAccount(accNumber);
+					break;
+				}
 
-			case 2: {
-				system("cls");
-				gotoXY(20, 16);
-				cout << "You are now loged out" << endl;
-				runningManagerMiniMenu = false;
-				break;
-			}
+				case 2: {
+					system("cls");
+					gotoXY(20, 16);
+					cout << "You are now loged out" << endl;
+					runningManagerMiniMenu = false;
+					break;
+				}
 			}
 
 		}
@@ -456,27 +382,27 @@ int managerMiniMenu_2()
 
 			switch (menu_item) {
 
-			case 0: {
-				system("cls");
-				gotoXY(20, 16);
-				employeeUpdateMenu();
-				break;
-			}
+				case 0: {
+					system("cls");
+					gotoXY(20, 16);
+					employeeUpdateMenu();
+					break;
+				}
 
-			case 1: {
-				system("cls");
-				gotoXY(20, 16);
-				customerUpdateMenu();
-				break;
-			}
+				case 1: {
+					system("cls");
+					gotoXY(20, 16);
+					customerUpdateMenu();
+					break;
+				}
 
-			case 2: {
-				system("cls");
-				gotoXY(20, 16);
-				cout << "You are now loged out" << endl;
-				runningManagerMiniMenu = false;
-				break;
-			}
+				case 2: {
+					system("cls");
+					gotoXY(20, 16);
+					cout << "You are now loged out" << endl;
+					runningManagerMiniMenu = false;
+					break;
+				}
 			}
 
 		}
@@ -528,27 +454,27 @@ int managerMiniMenu_3()
 
 			switch (menu_item) {
 
-			case 0: {
-				system("cls");
-				gotoXY(20, 16);
-				user.EADL.displayEmployeeAccountsData();
-				break;
-			}
+				case 0: {
+					system("cls");
+					gotoXY(20, 16);
+					user.EADL.displayEmployeeAccountsData();
+					break;
+				}
 
-			case 1: {
-				system("cls");
-				gotoXY(20, 16);
-				user.CADL.displayCustomerAccountsData();
-				break;
-			}
+				case 1: {
+					system("cls");
+					gotoXY(20, 16);
+					user.CADL.displayCustomerAccountsData();
+					break;
+				}
 
-			case 2: {
-				system("cls");
-				gotoXY(20, 16);
-				cout << "You are now loged out" << endl;
-				runningManagerMiniMenu = false;
-				break;
-			}
+				case 2: {
+					system("cls");
+					gotoXY(20, 16);
+					cout << "You are now loged out" << endl;
+					runningManagerMiniMenu = false;
+					break;
+				}
 			}
 
 		}
@@ -601,32 +527,32 @@ int managerMiniMenu_4()
 
 			switch (menu_item) {
 
-			case 0: {
-				system("cls");
-				gotoXY(20, 16);
+				case 0: {
+					system("cls");
+					gotoXY(20, 16);
 
-				accNumber = getAccountNumber();
+					accNumber = getAccountNumber();
 
-				user.EADL.displayEmployeeAccountData(accNumber);
-				break;
-			}
+					user.EADL.displayEmployeeAccountData(accNumber);
+					break;
+				}
 
-			case 1: {
-				system("cls");
-				gotoXY(20, 16);
-				accNumber = getAccountNumber();
+				case 1: {
+					system("cls");
+					gotoXY(20, 16);
+					accNumber = getAccountNumber();
 
-				user.CADL.displayCustomerAccountData(accNumber);
-				break;
-			}
+					user.CADL.displayCustomerAccountData(accNumber);
+					break;
+				}
 
-			case 2: {
-				system("cls");
-				gotoXY(20, 16);
-				cout << "You are now loged out" << endl;
-				runningManagerMiniMenu = false;
-				break;
-			}
+				case 2: {
+					system("cls");
+					gotoXY(20, 16);
+					cout << "You are now loged out" << endl;
+					runningManagerMiniMenu = false;
+					break;
+				}
 			}
 
 		}
@@ -678,27 +604,27 @@ int managerMiniMenu_5()
 
 			switch (menu_item) {
 
-			case 0: {
-				system("cls");
-				gotoXY(20, 16);
-				user.EADL.searchEmployeeAccountsWithFirstLetter(getFirstLetter());
-				break;
-			}
+				case 0: {
+					system("cls");
+					gotoXY(20, 16);
+					user.EADL.searchEmployeeAccountsWithFirstLetter(getFirstLetter());
+					break;
+				}
 
-			case 1: {
-				system("cls");
-				gotoXY(20, 16);
-				user.CADL.searchCustomerAccountsWithFirstLetter(getFirstLetter());
-				break;
-			}
+				case 1: {
+					system("cls");
+					gotoXY(20, 16);
+					user.CADL.searchCustomerAccountsWithFirstLetter(getFirstLetter());
+					break;
+				}
 
-			case 2: {
-				system("cls");
-				gotoXY(20, 16);
-				cout << "You are now loged out" << endl;
-				runningManagerMiniMenu = false;
-				break;
-			}
+				case 2: {
+					system("cls");
+					gotoXY(20, 16);
+					cout << "You are now loged out" << endl;
+					runningManagerMiniMenu = false;
+					break;
+				}
 			}
 
 		}
@@ -755,55 +681,55 @@ int managerSubMenu()
 
 			switch (menu_item) {
 
-			case 0: {
-				system("cls");
-				gotoXY(20, 16);
-				managerMiniMenu_0();
-				break;
-			}
+				case 0: {
+					system("cls");
+					gotoXY(20, 16);
+					managerMiniMenu_0();
+					break;
+				}
 
-			case 1: {
-				system("cls");
-				gotoXY(20, 16);
-				managerMiniMenu_1();
-				break;
-			}
+				case 1: {
+					system("cls");
+					gotoXY(20, 16);
+					managerMiniMenu_1();
+					break;
+				}
 
-			case 2: {
-				system("cls");
-				gotoXY(20, 16);
-				managerMiniMenu_2();
-				break;
-			}
+				case 2: {
+					system("cls");
+					gotoXY(20, 16);
+					managerMiniMenu_2();
+					break;
+				}
 
-			case 3: {
-				system("cls");
-				gotoXY(20, 16);
-				managerMiniMenu_3();
-				break;
-			}
+				case 3: {
+					system("cls");
+					gotoXY(20, 16);
+					managerMiniMenu_3();
+					break;
+				}
 
-			case 4: {
-				system("cls");
-				gotoXY(20, 16);
-				managerMiniMenu_4();
-				break;
-			}
+				case 4: {
+					system("cls");
+					gotoXY(20, 16);
+					managerMiniMenu_4();
+					break;
+				}
 
-			case 5: {
-				system("cls");
-				gotoXY(20, 16);
-				managerMiniMenu_5();
-				break;
-			}
+				case 5: {
+					system("cls");
+					gotoXY(20, 16);
+					managerMiniMenu_5();
+					break;
+				}
 
-			case 6: {
-				system("cls");
-				gotoXY(20, 16);
-				cout << "You are now loged out" << endl;
-				runningManagerSubMenu = false;
-				break;
-			}
+				case 6: {
+					system("cls");
+					gotoXY(20, 16);
+					cout << "You are now loged out" << endl;
+					runningManagerSubMenu = false;
+					break;
+				}
 			}
 
 		}
@@ -887,7 +813,7 @@ int bankSubMenu()
 				case 2: {
 					system("cls");
 					gotoXY(20, 16);
-					updateMenu();
+					customerUpdateMenu();
 					break;
 				}
 
@@ -983,72 +909,72 @@ int atmSubMenu(CustomerAccount* loggedInAccountNumber)
 
 			switch (menu_item) {
 
-			case 0: {
-				system("cls");
-				gotoXY(20, 16);
-				user.moneyMachine.depositMoney(
-					getAmount()
-				);
-				user.CADL.updateFullFile();
-				break;
-			}
+				case 0: {
+					system("cls");
+					gotoXY(20, 16);
+					user.moneyMachine.depositMoney(
+						getAmount()
+					);
+					user.CADL.updateFullFile();
+					break;
+				}
 
-			case 1: {
-				system("cls");
-				gotoXY(20, 16);
-				user.moneyMachine.withdrawMoney(
-					getAmount()
-				);
-				user.CADL.updateFullFile();
-				break;
-			}
+				case 1: {
+					system("cls");
+					gotoXY(20, 16);
+					user.moneyMachine.withdrawMoney(
+						getAmount()
+					);
+					user.CADL.updateFullFile();
+					break;
+				}
 
-			case 2: {
-				system("cls");
-				gotoXY(20, 16);
-				cout << "Enter Sender and Reciever Account Number respectivley" << endl;
-				user.moneyMachine.transferMoney(
-					user.CADL.searchCustomerAccount(getAccountNumber()),
-					getAmount()
-				);
-				user.CADL.updateFullFile();
-				break;
-			}
+				case 2: {
+					system("cls");
+					gotoXY(20, 16);
+					cout << "Enter Sender and Reciever Account Number respectivley" << endl;
+					user.moneyMachine.transferMoney(
+						user.CADL.searchCustomerAccount(getAccountNumber()),
+						getAmount()
+					);
+					user.CADL.updateFullFile();
+					break;
+				}
 
-			case 3: {
-				system("cls");
-				gotoXY(20, 16);
-				cout << "\nEnter User Name and New Password" << endl;
-				user.moneyMachine.changePassword(
-					getAccountPassword()
-				);
-				user.CADL.updateFullFile();
-				break;
-			}
+				case 3: {
+					system("cls");
+					gotoXY(20, 16);
+					cout << "\nEnter User Name and New Password" << endl;
+					user.moneyMachine.changePassword(
+						getAccountPassword()
+					);
+					user.CADL.updateFullFile();
+					break;
+				}
 
-			case 4: {
-				system("cls");
-				gotoXY(20, 16);
-				cout << "Your Account Balance is : ";
-				cout << loggedInAccountNumber->customerAccountBalance;
-				break;
-			}
+				case 4: {
+					system("cls");
+					gotoXY(20, 16);
+					cout << "Your Account Balance is : ";
+					cout << loggedInAccountNumber->customerAccountBalance;
+					break;
+				}
 
-			case 5: {
-				system("cls");
-				gotoXY(20, 16);
-				cout << endl;
-				user.moneyMachine.transactionHistory();
-				break;
-			}
+				case 5: {
+					system("cls");
+					gotoXY(20, 16);
+					cout << endl;
+					user.moneyMachine.transactionHistory();
+					break;
+				}
 
-			case 6: {
-				system("cls");
-				gotoXY(20, 16);
-				cout << "You are now loged out" << endl;
-				runningSubMenu = false;
-				break;
-			}
+				case 6: {
+					system("cls");
+					gotoXY(20, 16);
+					cout << "You are now loged out" << endl;
+					runningSubMenu = false;
+					break;
+				}
 			}
 
 		}
@@ -1195,27 +1121,27 @@ int atmMenu()
 
 			switch (menu_item) {
 
-			case 0: {
-				system("cls");
-				gotoXY(20, 16);
-				accNumber = getAccountNumber();
-				CustomerAccount* loggedInAccount = user.moneyMachine.atmLogIn(user.CADL.searchCustomerAccount(accNumber), getAccountPassword());
-				if (loggedInAccount) {
-					atmSubMenu(loggedInAccount);
+				case 0: {
+					system("cls");
+					gotoXY(20, 16);
+					accNumber = getAccountNumber();
+					CustomerAccount* loggedInAccount = user.moneyMachine.atmLogIn(user.CADL.searchCustomerAccount(accNumber), getAccountPassword());
+					if (loggedInAccount) {
+						atmSubMenu(loggedInAccount);
+					}
+					else {
+						cout << "\n" << setw(80) << "Your Password or Account Number is incorrect" << endl;
+					}
+					break;
 				}
-				else {
-					cout << "\n" << setw(80) << "Your Password or Account Number is incorrect" << endl;
-				}
-				break;
-			}
 
 
-			case 1: {
-				gotoXY(20, 16);
-				cout << "Your are now back on street ...";
-				running = false;
-				break;
-			}
+				case 1: {
+					gotoXY(20, 16);
+					cout << "Your are now back on street ...";
+					running = false;
+					break;
+				}
 
 			}
 
@@ -1243,7 +1169,7 @@ int entryPoint()
 	while (running)
 	{
 		gotoXY(20, 7);  cout << "[0] Get Inside BANK";
-		gotoXY(20, 8);  cout << "[1] Get INside ATM";
+		gotoXY(20, 8);  cout << "[1] Get Inside ATM";
 		gotoXY(20, 9);  cout << "[2] Go Back Home";
 
 		system("pause>nul"); // the >nul bit causes it the print no message
@@ -1272,26 +1198,26 @@ int entryPoint()
 
 			switch (menu_item) {
 
-			case 0: {
-				system("cls");
-				gotoXY(20, 16);
-				bankMenu();
-				break;
-			}
+				case 0: {
+					system("cls");
+					gotoXY(20, 16);
+					bankMenu();
+					break;
+				}
 
 
-			case 1: {
-				gotoXY(20, 16);
-				atmMenu();
-				break;
-			}
+				case 1: {
+					gotoXY(20, 16);
+					atmMenu();
+					break;
+				}
 
-			case 2: {
-				gotoXY(20, 16);
-				cout << "Your Safely Reached Home ...";
-				running = false;
-				break;
-			}
+				case 2: {
+					gotoXY(20, 16);
+					cout << "Your Safely Reached Home ...";
+					running = false;
+					break;
+				}
 
 			}
 

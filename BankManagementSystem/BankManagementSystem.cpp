@@ -10,7 +10,7 @@
 #include <queue>
 using namespace std;
 
-static int num = 0;
+static int num = 0;  // customer serial number 
 static int num1 = 0;
 static int num2 = 0;
 static int num3 = 0;

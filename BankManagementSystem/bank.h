@@ -1,15 +1,10 @@
-//#include <iostream>
-//#include <fstream>
-//#include <string>
-//#include <sstream>
-//#include <iomanip>
-//using namespace std;
+// Labraries Are Handled in the "BankManagementSyetem.cpp" File
 
 class CustomerAccount {
 public:
     string customerAccountNumber;
     int customerAccountBalance;
-    bool customerAccountType;
+    bool customerAccountType; // 0 for saving and 1 for currunt
     string customerAccountUserName;
     int customerAccountPassword;
     CustomerAccount* nextCustomer;
@@ -365,10 +360,15 @@ public:
     EmployeeAccount* nextEmployee;
     EmployeeAccount* prevEmployee;
 
-    EmployeeAccount(string employeeAccountName, string employeeAccountNumber, int employeeAccountPassword) {
+    EmployeeAccount(
+        string employeeAccountName, 
+        string employeeAccountNumber, 
+        int employeeAccountPassword
+    ) {
         this->employeeAccountNumber = employeeAccountNumber;
         this->employeeAccountName = employeeAccountName;
         this->employeeAccountPassword = employeeAccountPassword;
+        nextEmployee = 0; prevEmployee = 0;
     }
 
     ~EmployeeAccount() {}

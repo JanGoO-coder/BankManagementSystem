@@ -1,4 +1,4 @@
-
+// Labraries Are Handled in the "BankManagementSyetem.cpp" File
 
 void readAccSeries() {
 	string line;
@@ -7,14 +7,18 @@ void readAccSeries() {
 	ifstream readFile;
 	readFile.open("database/accountSeriesNumber.csv");
 	if (readFile.is_open()) {
-		while (getline(readFile, line)) {
+		while (getline(readFile, line)) { // "5,9,1,4"
 			stringstream ss(line);
+
 			getline(ss, numString, ',');
 			num = stoi(numString);
+			
 			getline(ss, num1String, ',');
 			num1 = stoi(num1String);
+			
 			getline(ss, num2String, ',');
 			num2 = stoi(num2String);
+			
 			getline(ss, num3String, ',');
 			num3 = stoi(num3String);
 		}
