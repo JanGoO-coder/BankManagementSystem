@@ -761,10 +761,12 @@ public:
         int passW
     ) {
         bool isLogedIn = false;
+        time_t now = time(0);
+        char* currDateTime = ctime(&now);
         if (accNumber != NULL) {
             if (accNumber->customerAccountPassword == passW) {
                 loggedInAccount = accNumber;
-                atmHistory.push(loggedInAccount->customerAccountNumber + " logged in to the Account");
+                atmHistory.push(loggedInAccount->customerAccountNumber + " logged in to the Account | " + currDateTime);
                 isLogedIn = true;
             }
         }
@@ -783,12 +785,16 @@ public:
     void depositMoney(
         int depAmount
     ) {
+        time_t now = time(0);
+        char* currDateTime = ctime(&now);
         loggedInAccount->customerAccountBalance += depAmount;
         atmHistory.push(
             "Deposited Money " 
             + to_string(depAmount) 
             + " to Account " 
             + loggedInAccount->customerAccountNumber
+            + " | "
+            + currDateTime
         );
         updateFullFile(head);
     }
@@ -796,9 +802,14 @@ public:
     void withdrawMoney(
         int witAmount
     ) {
-        do {
+        time_t now = time(0);
+        char* currDateTime = ctime(&now);
+
+        int referenceAmount = loggedInAccount->customerAccountBalance;
+
+        while (witAmount > referenceAmount || witAmount <= 0) {
             witAmount = getAmount();
-        } while (witAmount > loggedInAccount->customerAccountBalance || witAmount <= 0);
+        }
 
         loggedInAccount->customerAccountBalance -= witAmount;
         atmHistory.push(
@@ -806,6 +817,8 @@ public:
             + to_string(witAmount) 
             + " from Account " 
             + loggedInAccount->customerAccountNumber
+            + " | "
+            + currDateTime
         );
         updateFullFile(head);
     }
@@ -814,14 +827,18 @@ public:
         CustomerAccount* recieverAccNum, 
         int amount
     ) {
+        time_t now = time(0);
+        char* currDateTime = ctime(&now);
         if (recieverAccNum->customerAccountNumber == loggedInAccount->customerAccountNumber) {
             cout << "\nYou can not transfer money to yourslef" << endl;
             return;
         }
 
-        do {
+        int referenceAmount = loggedInAccount->customerAccountBalance;
+
+        while (amount > referenceAmount || amount <= 0) {
             amount = getAmount();
-        } while (amount > loggedInAccount->customerAccountBalance || amount <= 0);
+        }
 
         loggedInAccount->customerAccountBalance -= amount;
         recieverAccNum->customerAccountBalance += amount;
@@ -832,6 +849,8 @@ public:
             + loggedInAccount->customerAccountNumber 
             + " to Account " 
             + recieverAccNum->customerAccountNumber
+            + " | "
+            + currDateTime
         );
         updateFullFile(head);
     }
@@ -839,8 +858,10 @@ public:
     void changePassword(
         int passW
     ) {
+        time_t now = time(0);
+        char* currDateTime = ctime(&now);
         loggedInAccount->customerAccountPassword = passW;
-        atmHistory.push("Changed Password of Account " + loggedInAccount->customerAccountNumber );
+        atmHistory.push("Changed Password of Account " + loggedInAccount->customerAccountNumber + " | " + currDateTime);
         updateFullFile(head);
     }
 
@@ -852,7 +873,9 @@ public:
     }
 
     ~ATM() {
-        atmHistory.push(loggedInAccount->customerAccountNumber + " Logged Out");
+        time_t now = time(0);
+        char* currDateTime = ctime(&now);
+        atmHistory.push(loggedInAccount->customerAccountNumber + " Logged Out | " + currDateTime);
         saveSessionName();
         saveSession();
     }

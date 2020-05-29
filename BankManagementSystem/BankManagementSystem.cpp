@@ -1,4 +1,5 @@
 // CPP Buildin Libraries
+#define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -7,6 +8,7 @@
 #include <iomanip>
 #include <conio.h>
 #include <windows.h>
+#include <ctime>
 #include <cstdlib>
 #include <stack>
 #include <queue>
