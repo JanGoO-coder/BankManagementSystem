@@ -14,6 +14,7 @@ int employeeUpdateMenu()
 	int menu_item = 0, x = 7;
 	bool running = true;
 	string accNumber = "";
+	string userName = "";
 
 	cout << user.branchName << endl;
 	cout << "Branch Code: " << user.branchCode << endl;
@@ -55,9 +56,18 @@ int employeeUpdateMenu()
 					system("cls");
 					gotoXY(20, 16);
 
-					accNumber = getAccountNumber();
+					do {
+						accNumber = getAccountNumber();
+						accNumber[0] = toupper(accNumber[0]);
+						accNumber[1] = toupper(accNumber[1]);
+						accNumber[2] = toupper(accNumber[2]);
+						accNumber[3] = toupper(accNumber[3]);
+					} while (accNumber[0] != 'E');
 
-					user.EADL.updateCustomerAccountUserName(accNumber, getAccountUserName());
+					userName = getAccountUserName();
+					toupper(userName[0]);
+
+					user.EADL.updateCustomerAccountUserName(accNumber, userName);
 					break;
 				}
 
@@ -65,7 +75,13 @@ int employeeUpdateMenu()
 					system("cls");
 					gotoXY(20, 16);
 
-					accNumber = getAccountNumber();
+					do {
+						accNumber = getAccountNumber();
+						accNumber[0] = toupper(accNumber[0]);
+						accNumber[1] = toupper(accNumber[1]);
+						accNumber[2] = toupper(accNumber[2]);
+						accNumber[3] = toupper(accNumber[3]);
+					} while (accNumber[0] != 'E');
 
 					user.EADL.updateCustomerAccountPassword(accNumber, getAccountPassword());
 					break;
@@ -94,6 +110,8 @@ int customerUpdateMenu()
 	int menu_item = 0, x = 7;
 	bool running = true;
 	string accNumber = "";
+	int amount = 0;
+	string userName = "";
 
 	cout << user.branchName << endl;
 	cout << "Branch Code: " << user.branchCode << endl;
@@ -136,9 +154,18 @@ int customerUpdateMenu()
 					system("cls");
 					gotoXY(20, 16);
 
-					accNumber = getAccountNumber();
+					do {
+						accNumber = getAccountNumber();
+						accNumber[0] = toupper(accNumber[0]);
+						accNumber[1] = toupper(accNumber[1]);
+						accNumber[2] = toupper(accNumber[2]);
+						accNumber[3] = toupper(accNumber[3]);
+					} while (accNumber[0] != 'C');
 
-					user.CADL.updateCustomerAccountUserName(accNumber, getAccountUserName());
+					userName = getAccountUserName();
+					toupper(userName[0]);
+
+					user.CADL.updateCustomerAccountUserName(accNumber, userName);
 					break;
 				}
 
@@ -146,7 +173,13 @@ int customerUpdateMenu()
 					system("cls");
 					gotoXY(20, 16);
 
-					accNumber = getAccountNumber();
+					do {
+						accNumber = getAccountNumber();
+						accNumber[0] = toupper(accNumber[0]);
+						accNumber[1] = toupper(accNumber[1]);
+						accNumber[2] = toupper(accNumber[2]);
+						accNumber[3] = toupper(accNumber[3]);
+					} while (accNumber[0] != 'C');
 
 					user.CADL.updateCustomerAccountPassword(accNumber, getAccountPassword());
 					break;
@@ -156,9 +189,19 @@ int customerUpdateMenu()
 					system("cls");
 					gotoXY(20, 16);
 
-					accNumber = getAccountNumber();
+					do {
+						accNumber = getAccountNumber();
+						accNumber[0] = toupper(accNumber[0]);
+						accNumber[1] = toupper(accNumber[1]);
+						accNumber[2] = toupper(accNumber[2]);
+						accNumber[3] = toupper(accNumber[3]);
+					} while (accNumber[0] != 'C');
 
-					user.CADL.updateCustomerAccountBalance(accNumber, getAmount());
+					do {
+						amount = getAmount();
+					} while (amount <= 0);
+
+					user.CADL.updateCustomerAccountBalance(accNumber, amount);
 					break;
 				}
 
@@ -184,6 +227,7 @@ int managerMiniMenu_0()
 	system("cls");
 	int menu_item = 0, x = 7;
 	bool runningManagerMiniMenu = true;
+	string userName = "";
 
 	cout << user.branchName << endl;
 	cout << "Branch Code: " << user.branchCode << endl;
@@ -224,9 +268,13 @@ int managerMiniMenu_0()
 				case 0: {
 					system("cls");
 					gotoXY(20, 16);
+
+					userName = getAccountUserName();
+					userName[0] = toupper(userName[0]);
+
 					user.EADL.createNewEmployeeAccount(
 						generateEmployeeAccountNumber(), 
-						getAccountUserName(), 
+						userName, 
 						getAccountPassword()
 					);
 					break;
@@ -235,10 +283,14 @@ int managerMiniMenu_0()
 				case 1: {
 					system("cls");
 					gotoXY(20, 16);
+
+					userName = getAccountUserName();
+					userName[0] = toupper(userName[0]);
+
 					user.CADL.createNewCustomerAccount(
 						generateCustomerAccountNumber(),
 						0 ,
-						getAccountUserName(), 
+						userName, 
 						getAccountPassword(), 
 						getAccountType()
 					);
@@ -308,7 +360,13 @@ int managerMiniMenu_1()
 					system("cls");
 					gotoXY(20, 16);
 
-					accNumber = getAccountNumber();
+					do {
+						accNumber = getAccountNumber();
+						accNumber[0] = toupper(accNumber[0]);
+						accNumber[1] = toupper(accNumber[1]);
+						accNumber[2] = toupper(accNumber[2]);
+						accNumber[3] = toupper(accNumber[3]);
+					} while (accNumber[0] != 'E');
 
 					user.EADL.removeEmployeeAccount(accNumber);
 					break;
@@ -318,7 +376,13 @@ int managerMiniMenu_1()
 					system("cls");
 					gotoXY(20, 16);
 
-					accNumber = getAccountNumber();
+					do {
+						accNumber = getAccountNumber();
+						accNumber[0] = toupper(accNumber[0]);
+						accNumber[1] = toupper(accNumber[1]);
+						accNumber[2] = toupper(accNumber[2]);
+						accNumber[3] = toupper(accNumber[3]);
+					} while (accNumber[0] != 'C');
 
 					user.CADL.removeCustomerAccount(accNumber);
 					break;
@@ -531,7 +595,13 @@ int managerMiniMenu_4()
 					system("cls");
 					gotoXY(20, 16);
 
-					accNumber = getAccountNumber();
+					do {
+						accNumber = getAccountNumber();
+						accNumber[0] = toupper(accNumber[0]);
+						accNumber[1] = toupper(accNumber[1]);
+						accNumber[2] = toupper(accNumber[2]);
+						accNumber[3] = toupper(accNumber[3]);
+					} while (accNumber[0] != 'E');
 
 					user.EADL.displayEmployeeAccountData(accNumber);
 					break;
@@ -540,7 +610,14 @@ int managerMiniMenu_4()
 				case 1: {
 					system("cls");
 					gotoXY(20, 16);
-					accNumber = getAccountNumber();
+
+					do {
+						accNumber = getAccountNumber();
+						accNumber[0] = toupper(accNumber[0]);
+						accNumber[1] = toupper(accNumber[1]);
+						accNumber[2] = toupper(accNumber[2]);
+						accNumber[3] = toupper(accNumber[3]);
+					} while (accNumber[0] != 'C');
 
 					user.CADL.displayCustomerAccountData(accNumber);
 					break;
@@ -567,6 +644,7 @@ int managerMiniMenu_5()
 	system("cls");
 	int menu_item = 0, x = 7;
 	bool runningManagerMiniMenu = true;
+	char firstLetter;
 
 	cout << user.branchName << endl;
 	cout << "Branch Code: " << user.branchCode << endl;
@@ -607,14 +685,22 @@ int managerMiniMenu_5()
 				case 0: {
 					system("cls");
 					gotoXY(20, 16);
-					user.EADL.searchEmployeeAccountsWithFirstLetter(getFirstLetter());
+
+					firstLetter = getFirstLetter();
+					toupper(firstLetter);
+
+					user.EADL.searchEmployeeAccountsWithFirstLetter(firstLetter);
 					break;
 				}
 
 				case 1: {
 					system("cls");
 					gotoXY(20, 16);
-					user.CADL.searchCustomerAccountsWithFirstLetter(getFirstLetter());
+
+					firstLetter = getFirstLetter();
+					toupper(firstLetter);
+
+					user.CADL.searchCustomerAccountsWithFirstLetter(firstLetter);
 					break;
 				}
 
@@ -746,6 +832,8 @@ int bankSubMenu()
 	int menu_item = 0, x = 7;
 	bool runningSubMenu = true;
 	string accNumber = "";
+	char firstLetter;
+	string userName = "";
 
 	cout << user.branchName << endl;
 	cout << "Branch Code: " << user.branchCode << endl;
@@ -790,10 +878,14 @@ int bankSubMenu()
 				case 0: {
 					system("cls");
 					gotoXY(20, 16);
+
+					userName = getAccountUserName();
+					userName[0] = toupper(userName[0]);
+
 					user.CADL.createNewCustomerAccount(
 						generateCustomerAccountNumber(), 
 						0, 
-						getAccountUserName(), 
+						userName, 
 						getAccountPassword(), 
 						getAccountType()
 					);
@@ -804,7 +896,13 @@ int bankSubMenu()
 					system("cls");
 					gotoXY(20, 16);
 
-					accNumber = getAccountNumber();
+					do {
+						accNumber = getAccountNumber();
+						accNumber[0] = toupper(accNumber[0]);
+						accNumber[1] = toupper(accNumber[1]);
+						accNumber[2] = toupper(accNumber[2]);
+						accNumber[3] = toupper(accNumber[3]);
+					} while (accNumber[0] != 'C');
 
 					user.CADL.removeCustomerAccount(accNumber);
 					break;
@@ -828,7 +926,13 @@ int bankSubMenu()
 					system("cls");
 					gotoXY(20, 16);
 
-					accNumber = getAccountNumber();
+					do {
+						accNumber = getAccountNumber();
+						accNumber[0] = toupper(accNumber[0]);
+						accNumber[1] = toupper(accNumber[1]);
+						accNumber[2] = toupper(accNumber[2]);
+						accNumber[3] = toupper(accNumber[3]);
+					} while (accNumber[0] != 'C');
 
 					user.CADL.displayCustomerAccountData(accNumber);
 					break;
@@ -837,7 +941,11 @@ int bankSubMenu()
 				case 5: {
 					system("cls");
 					gotoXY(20, 16);
-					user.CADL.searchCustomerAccountsWithFirstLetter(getFirstLetter());
+
+					firstLetter = getFirstLetter();
+					firstLetter = toupper(firstLetter);
+
+					user.CADL.searchCustomerAccountsWithFirstLetter(firstLetter);
 					break;
 				}
 
@@ -864,6 +972,7 @@ int atmSubMenu(CustomerAccount* loggedInAccountNumber)
 	int menu_item = 0, x = 7;
 	bool runningSubMenu = true;
 	string accNumber = "";
+	int amount = 0;
 
 	cout << user.branchName << endl;
 	cout << "Branch Code: " << user.branchCode << endl;
@@ -912,8 +1021,13 @@ int atmSubMenu(CustomerAccount* loggedInAccountNumber)
 				case 0: {
 					system("cls");
 					gotoXY(20, 16);
+
+					do {
+						amount = getAmount();
+					} while (amount <= 0);
+
 					user.moneyMachine.depositMoney(
-						getAmount()
+						amount
 					);
 					user.CADL.updateFullFile();
 					break;
@@ -932,9 +1046,18 @@ int atmSubMenu(CustomerAccount* loggedInAccountNumber)
 				case 2: {
 					system("cls");
 					gotoXY(20, 16);
-					cout << "Enter Sender and Reciever Account Number respectivley" << endl;
+
+					do {
+						accNumber = getAccountNumber();
+						accNumber[0] = toupper(accNumber[0]);
+						accNumber[1] = toupper(accNumber[1]);
+						accNumber[2] = toupper(accNumber[2]);
+						accNumber[3] = toupper(accNumber[3]);
+					} while (accNumber[0] != 'C');
+
+					cout << "Enter Reciever Account Number and Amount respectivley" << endl;
 					user.moneyMachine.transferMoney(
-						user.CADL.searchCustomerAccount(getAccountNumber()),
+						user.CADL.searchCustomerAccount(accNumber),
 						getAmount()
 					);
 					user.CADL.updateFullFile();
@@ -991,6 +1114,7 @@ int bankMenu()
 	int menu_item = 0, x = 7;
 	bool running = true;
 	string accNumber = " ";
+	string userName = "";
 
 	cout << user.branchName << endl;
 	cout << "Branch Code: " << user.branchCode << endl;
@@ -1033,7 +1157,17 @@ int bankMenu()
 				case 0: {
 					system("cls");
 					gotoXY(20, 16);
+
 					accNumber = getAccountNumber();
+					if (accNumber[0] == 'M' || accNumber[0] == 'm') {
+						accNumber[0] = toupper(accNumber[0]);
+					}
+					else {
+						accNumber[0] = toupper(accNumber[0]);
+						accNumber[1] = toupper(accNumber[1]);
+						accNumber[2] = toupper(accNumber[2]);
+						accNumber[3] = toupper(accNumber[3]);
+					}
 					
 					if (user.EADL.logIn(user.EADL.searchEmployeeAccount(accNumber), getAccountPassword())) {
 						if (accNumber[0] == 'M') {
@@ -1052,9 +1186,13 @@ int bankMenu()
 
 				case 1: {
 					gotoXY(20, 16);
+
+					userName = getAccountUserName();
+					userName[0] = toupper(userName[0]);
+
 					user.EADL.createNewEmployeeAccount(
 						generateEmployeeAccountNumber(), 
-						getAccountUserName(), 
+						userName, 
 						getAccountPassword()
 					);
 					break;
@@ -1124,7 +1262,15 @@ int atmMenu()
 				case 0: {
 					system("cls");
 					gotoXY(20, 16);
-					accNumber = getAccountNumber();
+
+					do {
+						accNumber = getAccountNumber();
+						accNumber[0] = toupper(accNumber[0]);
+						accNumber[1] = toupper(accNumber[1]);
+						accNumber[2] = toupper(accNumber[2]);
+						accNumber[3] = toupper(accNumber[3]);
+					} while (accNumber[0] != 'C');
+
 					CustomerAccount* loggedInAccount = user.moneyMachine.atmLogIn(user.CADL.searchCustomerAccount(accNumber), getAccountPassword());
 					if (loggedInAccount) {
 						atmSubMenu(loggedInAccount);

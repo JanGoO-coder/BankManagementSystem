@@ -794,6 +794,10 @@ public:
     void withdrawMoney(
         int witAmount
     ) {
+        do {
+            witAmount = getAmount();
+        } while (witAmount > loggedInAccount->customerAccountBalance || witAmount <= 0);
+
         loggedInAccount->customerAccountBalance -= witAmount;
         atmHistory.push(
             "Withdraw Money " 
@@ -808,6 +812,15 @@ public:
         CustomerAccount* recieverAccNum, 
         int amount
     ) {
+        if (recieverAccNum->customerAccountNumber == loggedInAccount->customerAccountNumber) {
+            cout << "\nYou can not transfer money to yourslef" << endl;
+            return;
+        }
+
+        do {
+            amount = getAmount();
+        } while (amount > loggedInAccount->customerAccountBalance || amount <= 0);
+
         loggedInAccount->customerAccountBalance -= amount;
         recieverAccNum->customerAccountBalance += amount;
         atmHistory.push(
