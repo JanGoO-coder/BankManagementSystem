@@ -9,35 +9,13 @@
   </Class>
   <Class Name="CustomerAccountDataList">
     <Position X="3.25" Y="0.5" Width="2.75" />
-    <NestedTypes>
-      <Class Name="CustomerAccountDataList::Bank" Collapsed="true">
-        <TypeIdentifier>
-          <NewMemberFileName>bank.h</NewMemberFileName>
-        </TypeIdentifier>
-      </Class>
-      <Class Name="CustomerAccountDataList::ATM" Collapsed="true">
-        <TypeIdentifier>
-          <NewMemberFileName>bank.h</NewMemberFileName>
-        </TypeIdentifier>
-      </Class>
-      <Class Name="CustomerAccountDataList::EmployeeAccountDataList" Collapsed="true">
-        <TypeIdentifier>
-          <NewMemberFileName>bank.h</NewMemberFileName>
-        </TypeIdentifier>
-      </Class>
-      <Class Name="CustomerAccountDataList::EmployeeAccount" Collapsed="true">
-        <TypeIdentifier>
-          <NewMemberFileName>bank.h</NewMemberFileName>
-        </TypeIdentifier>
-      </Class>
-    </NestedTypes>
     <TypeIdentifier>
-      <HashCode>BBAQABAAgAAgBAAAIAAAAAAAQAAACAAACAgGAAAAIBA=</HashCode>
+      <HashCode>BBAQABAAgAAgBAAAIAAAAAAAQAgACAAACAgEAAAAIBA=</HashCode>
       <FileName>bank.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="EmployeeAccount">
-    <Position X="11.75" Y="0.5" Width="2.25" />
+    <Position X="9.25" Y="3.75" Width="2.25" />
     <TypeIdentifier>
       <HashCode>AAAEAAAAAAACAAAgAMAAAAAAAAAAAEAAAAAAAEAAAAA=</HashCode>
       <FileName>bank.h</FileName>
@@ -46,7 +24,7 @@
   <Class Name="EmployeeAccountDataList">
     <Position X="6.25" Y="0.5" Width="2.75" />
     <TypeIdentifier>
-      <HashCode>AAAQAAAGgEAABAAAIEAAAAAAAAAAiAAAAQgEAAAIIAA=</HashCode>
+      <HashCode>AAAQAAAGgEAABAAAIEAAAAAAAAAAyAAAAQgEAAAIIAA=</HashCode>
       <FileName>bank.h</FileName>
     </TypeIdentifier>
   </Class>
@@ -58,7 +36,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="Bank">
-    <Position X="14.25" Y="0.5" Width="1.75" />
+    <Position X="11.75" Y="0.5" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AQAAAAQEIAAAAAAAAQAAAAAAAAAgAAAAAIAAAAAAAAA=</HashCode>
       <FileName>bank.h</FileName>
